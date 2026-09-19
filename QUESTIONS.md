@@ -19,3 +19,11 @@ agent helps keep track of the progress of it's user and work.
 - Demo runs local-first (zustand persisted store = optimistic truth) and syncs to Supabase Edge Functions when `EXPO_PUBLIC_SUPABASE_URL` is set. Same UI works before the backend is linked.
 - Gear TFLite model: demo uses the heuristic + always-shown confirm sheet (Expo Go compatible). Real model needs a dev-client build; tracked as next step after MVP demo.
 
+### 2026-09-19 — Tristan's agent (steps 1–5 landed)
+- Supabase MCP connected. Created project **coaching-app** (ref `exaayuehkdmpdxrfhtuj`, us-east-1, $0/mo). Schema + Edge Functions being deployed via MCP by a sub-agent; see `supabase/README.md` when it lands.
+- `packages/core` now has seed content (5 sports, 25 tracks, 18 positions, 67 drills, 14 badges, 8 quest templates), mascot lines, and the shared `progress.ts` reducer (`completeSession`, `openChest`, `ensureQuests`, `recordScan`, `parentCheckin`). 34 tests.
+- **Deliberate simplification (logged):** per-child gamification state is one JSONB blob (`child_progress.progress`) shaped as `ChildProgress`, not the normalized ledger/streak/quest tables in spec §D. Seed content lives in TS only, no seed tables. Normalize later when parent analytics need SQL. `// ponytail:` comments mark it.
+- `apps/mobile` (Expo SDK 57, expo-router, NativeWind 4, shadcn-style primitives): all screens from spec §A written — auth, parent onboarding wizard, Who's playing, PIN, kid onboarding, Path (per-sport tabs, nodes, chests), Session (time picker → player → summary), Scan (Spot + Gear, on-device 32×32 decode + color heuristic, confirm sheet always shown), Quests, Me, parent Dashboard/Children/Plan/Rewards/Settings, Child detail. Typecheck clean; `expo export --platform ios` bundles.
+- Optimistic UI: `lib/store.ts` (zustand, persisted) runs the core reducer locally first, queues Edge Function calls, rolls back only on 4xx via `sync-progress`. Without `EXPO_PUBLIC_SUPABASE_URL` the app runs fully local (demo mode).
+- Not done yet: `.env` with project URL/key (waiting on backend sub-agent), simulator smoke test, Maestro flows (maestro not installed), TFLite gear model (heuristic in place).
+

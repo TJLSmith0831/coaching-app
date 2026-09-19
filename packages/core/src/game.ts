@@ -26,7 +26,7 @@ export const playerLevel = (totalXp: number) => Math.floor(Math.sqrt(Math.max(0,
 
 export const dailyGoalMet = (xpToday: number, goal: number) => xpToday >= goal;
 
-const dayNum = (iso: string) => Math.floor(Date.UTC(+iso.slice(0, 4), +iso.slice(5, 7) - 1, +iso.slice(8, 10)) / 86_400_000);
+export const dayNum = (iso: string) => Math.floor(Date.UTC(+iso.slice(0, 4), +iso.slice(5, 7) - 1, +iso.slice(8, 10)) / 86_400_000);
 // ISO week: Monday start. 1970-01-01 was a Thursday (dayNum 0 → weekday 3 with Mon=0).
 const weekNum = (iso: string) => Math.floor((dayNum(iso) + 3) / 7);
 
