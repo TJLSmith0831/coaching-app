@@ -27,3 +27,22 @@ export async function callFn<T>(client: Db, name: string, body: Record<string, u
   if (status >= 400 && status < 500) throw new HardRejection(status, message);
   throw new Error(message);
 }
+
+// ---- Typed Edge Function wrappers (names/routing live here so screens never hardcode them) ----
+type J = Record<string, unknown>;
+export const fns = {
+  setChildPin: (c: Db, b: { child_id: string; pin: string }) => callFn<{ ok: true }>(c, "set-child-pin", b),
+  verifyChildPin: (c: Db, b: { child_id: string; pin: string }) => callFn<{ ok: true }>(c, "verify-child-pin", b),
+  generatePath: <P>(c: Db, b: { child_id: string; sport_id: string; today?: string }) => callFn<{ progress: P }>(c, "generate-path", b),
+  startSession: (c: Db, b: { session_id: string; child_id: string; sport_id: string; unit: number; level: number; time_budget_sec: number; spot_id?: string | null; planned_drill_ids: string[]; today?: string }) =>
+    callFn<{ ok: true }>(c, "start-session", b),
+  completeSession: <P, S>(c: Db, b: { session_id: string; child_id: string; results: J[]; today: string; replay?: boolean }) =>
+    callFn<{ progress: P; summary: S; idempotent?: boolean }>(c, "complete-session", b),
+  openChest: <P>(c: Db, b: { child_id: string; sport_id: string; unit: number; level: number; today?: string }) =>
+    callFn<{ progress: P; xp: number; idempotent?: boolean }>(c, "progress", { action: "open-chest", ...b }),
+  recordScan: <P>(c: Db, b: { child_id: string; mode: "spot" | "gear"; today: string; spot?: J; equipment_type_ids?: string[] }) =>
+    callFn<{ progress: P; spot_id?: string }>(c, "progress", { action: "record-scan", ...b }),
+  parentCheckin: <P>(c: Db, b: { child_id: string; kind: "viewed" | "cheered" | "approved"; today: string }) =>
+    callFn<{ progress: P }>(c, "progress", { action: "parent-checkin", ...b }),
+  syncProgress: <P>(c: Db, b: { child_id: string; today: string }) => callFn<{ progress: P }>(c, "progress", { action: "sync-progress", ...b }),
+};

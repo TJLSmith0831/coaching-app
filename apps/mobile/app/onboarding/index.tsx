@@ -12,12 +12,12 @@ import { Progress } from "@/components/ui/progress";
 import { Mascot } from "@/components/mascot";
 import { SportSetup } from "@/components/sport-setup";
 import { GearPicker } from "@/components/gear-picker";
-import { AvailabilityGrid } from "@/components/availability-grid";
 import { useApp, type ChildSport } from "@/lib/store";
-import { AVATARS, MONTHS } from "@/lib/constants";
+import { AVATARS } from "@/lib/constants";
+import { BirthDatePicker, ageFromDate } from "@/components/birth-date-picker";
 import { seed } from "@coaching/core";
 
-const STEPS = ["profile", "consent", "child", "sports", "gear", "availability", "pin", "permissions", "done"] as const;
+const STEPS = ["profile", "child", "sports", "gear", "pin", "done"] as const;
 type Step = (typeof STEPS)[number];
 
 export default function ParentOnboarding() {
@@ -31,16 +31,15 @@ export default function ParentOnboarding() {
   const [firstName, setFirstName] = useState(parent?.firstName ?? "");
   const [consent, setConsent] = useState(false);
   const [nickname, setNickname] = useState("");
-  const year = new Date().getFullYear();
-  const [birthYear, setBirthYear] = useState(year - 10);
-  const [birthMonth, setBirthMonth] = useState(1);
+  const [birthDate, setBirthDate] = useState(() => { const d = new Date(); d.setFullYear(d.getFullYear() - 10); return d; });
   const [avatar, setAvatar] = useState(AVATARS[0]!);
   const [sports, setSports] = useState<ChildSport[]>([]);
   const [gear, setGear] = useState<string[]>([]);
-  const [minutes, setMinutes] = useState([0, 10, 0, 10, 0, 0, 10]);
+  const minutes = [0, 10, 0, 10, 0, 0, 10];
   const [pin, setPin] = useState("");
   const [childId, setChildId] = useState<string | null>(null);
-  const age = year - birthYear;
+  const age = Math.min(13, Math.max(8, ageFromDate(birthDate)));
+  const birthMonth = birthDate.getMonth() + 1, birthYear = birthDate.getFullYear();
   const i = STEPS.indexOf(step);
   const go = (s: Step) => setStep(s);
 
@@ -53,31 +52,20 @@ export default function ParentOnboarding() {
   const body: Record<Step, React.ReactNode> = {
     profile: (
       <>
-        <Mascot pose="cheer" line="Hi! I'm Coach. Let's set up your family in 5 minutes." />
+        <Mascot pose="cheer" line="Hi! I'm Coach. This takes about 3 minutes." />
         <Text variant="title">What should we call you?</Text>
-        <Input placeholder="Your first name" value={firstName} onChangeText={setFirstName} testID="first-name" />
-        <Button title="Next" disabled={!firstName.trim()} onPress={() => { setParent({ ...parent!, firstName: firstName.trim() }); go("consent"); }} />
-      </>
-    ),
-    consent: (
-      <>
-        <Text variant="title">Quick consent</Text>
-        <Text variant="body">You're the account holder. Your child only shares a nickname and a birth month. No chat, no public leaderboards. Photos from scans stay on this phone unless you turn on saving in Settings.</Text>
-        <Chip label={consent ? "✓ I am the parent or guardian and I agree to the Terms and Privacy Policy" : "I am the parent or guardian and I agree to the Terms and Privacy Policy"} selected={consent} onPress={() => setConsent(!consent)} className="h-auto py-3" />
-        <Button title="Next" disabled={!consent} onPress={() => go("child")} />
+        <Input placeholder="Your first name" value={firstName} onChangeText={setFirstName} testID="first-name" autoFocus />
+        <Chip label={`${consent ? "✓ " : ""}I'm the parent or guardian and agree to the Terms & Privacy Policy`} selected={consent} onPress={() => setConsent(!consent)} className="h-auto py-3" />
+        <Text variant="muted">Kids only share a nickname and birthday. No chat, no public leaderboards. Scan photos stay on this phone.</Text>
+        <Button title="Next" disabled={!firstName.trim() || !consent} onPress={() => { setParent({ ...parent!, firstName: firstName.trim() }); go("child"); }} />
       </>
     ),
     child: (
       <>
         <Text variant="title">Add a child</Text>
         <Input placeholder="Nickname (what they like to be called)" value={nickname} onChangeText={setNickname} testID="nickname" />
-        <Text variant="muted">Born</Text>
-        <View className="flex-row flex-wrap gap-2">
-          {Array.from({ length: 6 }, (_, k) => year - 8 - k).map((y) => <Chip key={y} label={`${y} (${year - y})`} selected={birthYear === y} onPress={() => setBirthYear(y)} />)}
-        </View>
-        <View className="flex-row flex-wrap gap-2">
-          {MONTHS.map((m, k) => <Chip key={m} label={m} selected={birthMonth === k + 1} onPress={() => setBirthMonth(k + 1)} className="h-10 px-3" />)}
-        </View>
+        <Text variant="muted">Birthday</Text>
+        <BirthDatePicker value={birthDate} onChange={setBirthDate} />
         <Text variant="muted">Pick an avatar</Text>
         <View className="flex-row flex-wrap gap-3">
           {AVATARS.map((a) => (
@@ -93,7 +81,7 @@ export default function ParentOnboarding() {
     sports: (
       <>
         <Text variant="title">{nickname}'s sports</Text>
-        <Text variant="muted">Pick up to 3. Star one as the focus.</Text>
+        <Text variant="muted">Pick up to 3. Positions and experience are optional, Coach starts everyone at the basics.</Text>
         <SportSetup value={sports} onChange={setSports} age={age} />
         <Button title="Next" disabled={sports.length === 0} onPress={() => { setGear(Array.from(new Set(sports.flatMap((s) => seed.sports.find((x) => x.id === s.sportId)!.coreEquipment)))); go("gear"); }} />
       </>
@@ -103,40 +91,28 @@ export default function ParentOnboarding() {
         <Text variant="title">What gear is at home?</Text>
         <Text variant="muted">Levels only use drills that fit the gear you have. {nickname} can also scan the pile with the camera later.</Text>
         <GearPicker sportIds={sports.map((s) => s.sportId)} value={gear} onChange={setGear} />
-        <Button title="Next" onPress={() => go("availability")} />
-      </>
-    ),
-    availability: (
-      <>
-        <Text variant="title">When can {nickname} practice?</Text>
-        <Text variant="muted">Tap a day to cycle minutes. Reminders go to this phone at 5:30pm.</Text>
-        <AvailabilityGrid value={minutes} onChange={setMinutes} />
         <Button title="Next" onPress={() => go("pin")} />
       </>
     ),
     pin: (
       <>
         <Text variant="title">Set {nickname}'s PIN</Text>
-        <Text variant="muted">4 digits. They tap this to switch to their profile.</Text>
+        <Text variant="muted">4 digits so {nickname} can switch to their own profile. Optional.</Text>
         <Input placeholder="1234" keyboardType="number-pad" maxLength={4} value={pin} onChangeText={(t) => setPin(t.replace(/\D/g, ""))} testID="pin" className="text-center text-3xl tracking-widest" />
-        <Button title="Save child" disabled={pin.length !== 4} onPress={() => { saveChild(); go("permissions"); }} />
-      </>
-    ),
-    permissions: (
-      <>
-        <Text variant="title">Permissions</Text>
-        <Text variant="body">Camera: scans the practice spot and gear. Photos stay on this phone.{"\n\n"}Notifications: practice reminders and a Sunday summary.</Text>
-        <Button title="Enable camera" variant="outline" onPress={() => Camera.requestCameraPermissionsAsync()} />
-        <Button title="Enable notifications" variant="outline" onPress={() => Notifications.requestPermissionsAsync()} />
-        <Button title="Continue" onPress={() => { if (childId) regenerate(childId); go("done"); }} />
+        <Button title="Save child" disabled={pin.length !== 4} onPress={() => { saveChild(); if (childId) regenerate(childId); go("done"); }} />
+        <Button variant="ghost" title="Skip PIN for now" onPress={() => { setPin(""); saveChild(); go("done"); }} />
       </>
     ),
     done: (
       <>
         <Mascot pose="cheer" line={`${nickname}'s first path is ready!`} />
         <Text variant="title">All set</Text>
-        <Text variant="body">Hand the phone to {nickname}, or add another child.</Text>
-        <Button title={`Hand to ${nickname}`} size="kid" onPress={() => { useApp.getState().setActiveChild(childId); router.replace("/kid/onboarding"); }} />
+        <Text variant="body">Practice days default to Mon, Wed, Sat for 10 minutes. Change anytime in Plan.</Text>
+        <View className="flex-row gap-2">
+          <Button className="flex-1" variant="outline" size="sm" title="Allow camera" onPress={() => Camera.requestCameraPermissionsAsync()} />
+          <Button className="flex-1" variant="outline" size="sm" title="Allow reminders" onPress={() => Notifications.requestPermissionsAsync()} />
+        </View>
+        <Button title={`Hand to ${nickname}`} size="kid" onPress={() => { if (childId) regenerate(childId); useApp.getState().setActiveChild(childId); router.replace("/kid/onboarding"); }} />
         <Button title="Add another child" variant="outline" onPress={() => { setChildId(null); setNickname(""); setSports([]); setGear([]); setPin(""); go("child"); }} />
         <Button title="Go to parent dashboard" variant="ghost" onPress={() => router.replace("/(parent)/dashboard")} />
       </>

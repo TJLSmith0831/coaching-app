@@ -5,9 +5,11 @@ appId: host.exp.Exponent
     clearState: true
 - openLink: exp://127.0.0.1:8081
 - extendedWaitUntil:
-    visible: "I'm a parent — get started"
-    timeout: 60000
-- tapOn: "I'm a parent — get started"
+    visible:
+      id: get-started
+    timeout: 90000
+- tapOn:
+    id: get-started
 - tapOn:
     id: email
 - inputText: "demo@example.com"

@@ -14,8 +14,8 @@ export default function Welcome() {
         <Text variant="body" className="text-center text-lg text-muted-foreground">10-minute practice levels for kids 8 to 13.{"\n"}Parents set it up in 5 minutes.</Text>
       </View>
       <View className="gap-3">
-        <Button title="I'm a parent — get started" size="kid" onPress={() => router.push({ pathname: "/(auth)/sign-in", params: { mode: "up" } })} />
-        <Button title="I already have an account" variant="outline" onPress={() => router.push({ pathname: "/(auth)/sign-in", params: { mode: "in" } })} />
+        <Button testID="get-started" title="I'm a parent — get started" size="kid" onPress={() => router.push({ pathname: "/(auth)/sign-in", params: { mode: "up" } })} />
+        <Button testID="have-account" title="I already have an account" variant="outline" onPress={() => router.push({ pathname: "/(auth)/sign-in", params: { mode: "in" } })} />
       </View>
     </Screen>
   );

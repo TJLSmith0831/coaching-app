@@ -19,9 +19,11 @@ export interface Reward { id: string; childId: string | null; title: string; cos
 export interface Claim { id: string; rewardId: string; childId: string; status: "pending" | "approved" | "denied"; claimedAt: string }
 interface Pending { id: string; name: string; body: Record<string, unknown>; childId?: string }
 
+/** Real age, clamped to the 8–13 content bands so any child gets drills. */
 export const ageOf = (c: Pick<Child, "birthMonth" | "birthYear">) => {
   const d = new Date();
-  return d.getFullYear() - c.birthYear - (d.getMonth() + 1 < c.birthMonth ? 1 : 0);
+  const a = d.getFullYear() - c.birthYear - (d.getMonth() + 1 < c.birthMonth ? 1 : 0);
+  return Math.min(13, Math.max(8, a));
 };
 
 interface State {

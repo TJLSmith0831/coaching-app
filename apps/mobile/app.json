@@ -36,7 +36,8 @@
       [
         "expo-notifications",
         {}
-      ]
+      ],
+      "@react-native-community/datetimepicker"
     ],
     "scheme": "coach",
     "experiments": {

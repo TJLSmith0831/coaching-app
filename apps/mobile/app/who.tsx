@@ -13,7 +13,7 @@ export default function Who() {
       <View className="flex-row flex-wrap gap-4 pt-4">
         {children.map((c) => (
           <Pressable key={c.id} testID={`who-${c.id}`} accessibilityRole="button" accessibilityLabel={`Play as ${c.nickname}`}
-            onPress={() => router.push({ pathname: "/pin/[childId]", params: { childId: c.id } })}
+            onPress={() => { if (!c.pin) { setActive(c.id); router.push(c.onboarded ? "/(kid)/path" : "/kid/onboarding"); } else router.push({ pathname: "/pin/[childId]", params: { childId: c.id } }); }}
             className="h-40 w-[47%] items-center justify-center gap-2 rounded-lg border-2 border-border bg-card active:opacity-80" style={{ backgroundColor: c.avatar.color }}>
             <Text className="text-6xl">{c.avatar.emoji}</Text>
             <Text variant="h2">{c.nickname}</Text>

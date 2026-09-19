@@ -7,11 +7,10 @@ import { Text } from "@/components/ui/text";
 import { Button } from "@/components/ui/button";
 import { Chip } from "@/components/ui/chip";
 import { Mascot } from "@/components/mascot";
-import { GearPicker } from "@/components/gear-picker";
 import { useApp, ageOf } from "@/lib/store";
 import { AVATARS, GOALS } from "@/lib/constants";
 
-const STEPS = ["hello", "avatar", "positions", "goals", "gear", "dailyGoal"] as const;
+const ALL_STEPS = ["hello", "avatar", "positions", "goals", "dailyGoal"] as const;
 
 export default function KidOnboarding() {
   const child = useApp((s) => s.child());
@@ -19,21 +18,21 @@ export default function KidOnboarding() {
   const [i, setI] = useState(0);
   const [avatar, setAvatar] = useState(child?.avatar ?? AVATARS[0]!);
   const [sports, setSports] = useState(child?.sports ?? []);
-  const [gear, setGear] = useState(child?.equipment ?? []);
   const [goalXp, setGoalXp] = useState(child?.dailyGoalXp ?? 40);
   if (!child) return null;
   const age = ageOf(child);
-  const step = STEPS[i]!;
+  const STEPS = ALL_STEPS.filter((s) => s !== "positions" || sports.some((cs) => cs.positionIds.length === 0));
+  const step = STEPS[Math.min(i, STEPS.length - 1)]!;
   const next = () => setI(i + 1);
   const patchSport = (sportId: SportId, p: Partial<(typeof sports)[number]>) => setSports(sports.map((s) => (s.sportId === sportId ? { ...s, ...p } : s)));
 
   const finish = () => {
-    updateChild(child.id, { avatar, sports, equipment: gear, dailyGoalXp: goalXp, onboarded: true, progress: { ...child.progress, dailyGoalXp: goalXp } });
+    updateChild(child.id, { avatar, sports, dailyGoalXp: goalXp, onboarded: true, progress: { ...child.progress, dailyGoalXp: goalXp } });
     router.replace("/(kid)/path");
   };
 
   return (
-    <Screen footer={step === "dailyGoal" ? <Button size="kid" title="Let's go!" onPress={finish} /> : step === "hello" ? <Button size="kid" title="Hi Coach!" onPress={next} /> : <Button size="kid" title="Next" onPress={next} />}>
+    <Screen footer={step === "dailyGoal" ? <Button size="kid" title="Let's go!" onPress={finish} /> : step === "hello" ? <Button size="kid" title="Hi Coach!" onPress={next} /> : <View className="gap-2"><Button size="kid" title="Next" onPress={next} /><Button variant="ghost" title="Skip" onPress={next} /></View>}>
       {step === "hello" && (
         <View className="items-center gap-6 pt-16">
           <Mascot pose="cheer" size="lg" />
@@ -93,13 +92,6 @@ export default function KidOnboarding() {
               </View>
             </View>
           ))}
-        </>
-      )}
-      {step === "gear" && (
-        <>
-          <Text variant="title">Got your gear?</Text>
-          <Text variant="muted">Tap what you have. You can scan it with the camera later too.</Text>
-          <GearPicker sportIds={sports.map((s) => s.sportId)} value={gear} onChange={setGear} />
         </>
       )}
       {step === "dailyGoal" && (
