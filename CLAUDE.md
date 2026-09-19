@@ -17,6 +17,8 @@ Add per-package commands here as `apps/mobile` and `supabase/` land.
 
 `graphify-out/` (code graph, gitignored) and `.palisade/` are tooling artifacts. `.mcp.json` wires the graphify MCP server to that graph.
 
+`design/` holds the UI prototype exported from claude.ai/design (reference only, never imported by the app). Read [design/README.md](design/README.md) before styling screens: it has the tokens, the theme mapping for `apps/mobile/global.css`, and the prototype-vs-spec gaps. The spec wins on behavior, the prototype on look.
+
 ## Agent coordination
 
 Use `QUESTIONS.md` at the repo root for agent coordination: log open questions, blockers, and cross-agent handoffs there instead of guessing, and check it before starting work.

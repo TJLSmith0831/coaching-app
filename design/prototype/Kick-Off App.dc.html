@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/organic-0aec73e5-e1af-4770-b387-b212a53e0de1/styles.css">
+<script src="_ds/organic-0aec73e5-e1af-4770-b387-b212a53e0de1/_ds_bundle.js"></script>
+<script src="./image-slot.js"></script>
+<style>
+body{margin:0;background:#e1eecc;font-family:var(--font-body);color:var(--color-text)}
+a{color:var(--color-accent-700)}a:hover{color:var(--color-accent-800)}
+@keyframes ko-pulse{0%{box-shadow:0 0 0 0 rgba(198,113,57,.55)}100%{box-shadow:0 0 0 18px rgba(198,113,57,0)}}
+@keyframes ko-pop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.08);opacity:1}100%{transform:scale(1)}}
+@keyframes ko-up{0%{transform:translateY(14px);opacity:0}100%{transform:none;opacity:1}}
+@keyframes ko-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes ko-wave{0%,100%{transform:rotate(0)}50%{transform:rotate(-18deg)}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;padding:36px 40px 60px;display:flex;flex-direction:column;gap:22px">
+<div style="max-width:720px;display:flex;flex-direction:column;gap:6px">
+  <h1 style="font-size:36px;margin:0">Kick-Off — solo soccer training for kids</h1>
+  <p style="font-size:14px;color:var(--color-neutral-700);margin:0;text-wrap:pretty">Parents set up the space, time and gear in-app, then hand the phone over. The child picks a pro guide, follows a Duolingo-style path of short drills sized to what they actually have (a ball, a wall, ten minutes), and earns XP, streaks, badges and guide kits. Organic palette: cream ground, terracotta actions, sage pitch. Use the Tweaks panel to switch between the clickable prototype and all screens side by side.</p>
+</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:36px;align-items:flex-start">
+
+<!-- ═══ S0 Parent setup ═══ -->
+<sc-if value="{{ s0 }}" hint-placeholder-val="{{ true }}">
+<div data-screen-label="Parent setup" style="flex:none;display:flex;flex-direction:column;gap:10px">
+<div style="font-size:12px;font-weight:600;color:var(--color-neutral-700)">1 · Parent setup</div>
+<div style="width:390px;height:844px;border-radius:52px;background:var(--color-accent-2-100);box-shadow:var(--shadow-lg);border:8px solid var(--color-neutral-900);overflow:hidden;position:relative;display:flex;flex-direction:column">
+  <div style="height:48px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 28px 6px;font-size:13px;font-weight:600"><span>9:41</span><span style="display:flex;gap:6px;align-items:center"><span style="width:14px;height:10px;border-radius:2px;background:var(--color-text)"></span><span style="width:22px;height:10px;border-radius:3px;border:1.5px solid var(--color-text);padding:1px"><span style="display:block;height:100%;width:80%;background:var(--color-text);border-radius:1px"></span></span></span></div><svg width="390" height="190" viewBox="0 0 390 190" style="position:absolute;left:0;bottom:0;pointer-events:none;opacity:.7"><g fill="none" stroke="#fff" stroke-width="4"><rect x="-6" y="30" width="402" height="220" rx="8"/><rect x="95" y="30" width="200" height="74" rx="2"/><rect x="145" y="30" width="100" height="30"/><path d="M152 104a44 44 0 0 0 86 0"/><circle cx="195" cy="86" r="3" fill="#fff"/></g></svg>
+  <div style="flex:1;display:flex;flex-direction:column;padding:12px 24px 28px;gap:18px;overflow:auto">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="animation:ko-bob 3s ease-in-out infinite;flex:none">
+        <svg width="92" height="104" viewBox="0 0 100 112"><ellipse cx="50" cy="106" rx="30" ry="4" fill="rgba(32,30,29,.15)"/><path d="M28 92 q-4 12 6 14 h10 q6 0 4 -6 l-4 -10z" fill="#d67f48"/><path d="M72 92 q4 12 -6 14 h-10 q-6 0 -4 -6 l4 -10z" fill="#d67f48"/><circle cx="50" cy="50" r="46" fill="#fff" stroke="#201e1d" stroke-width="3"/><polygon points="50,6 60,13 57,25 43,25 40,13" fill="#201e1d"/><polygon points="9,38 21,34 28,45 20,56 8,52" fill="#201e1d"/><polygon points="91,38 79,34 72,45 80,56 92,52" fill="#201e1d"/><polygon points="24,86 34,78 46,86 42,96 30,96" fill="#201e1d"/><polygon points="76,86 66,78 54,86 58,96 70,96" fill="#201e1d"/><circle cx="38" cy="48" r="6" fill="#201e1d"/><circle cx="62" cy="48" r="6" fill="#201e1d"/><circle cx="40" cy="46" r="2" fill="#fff"/><circle cx="64" cy="46" r="2" fill="#fff"/><circle cx="30" cy="60" r="4" fill="#ffc6a5"/><circle cx="70" cy="60" r="4" fill="#ffc6a5"/><path d="M40 62 q10 10 20 0" stroke="#201e1d" stroke-width="3" fill="none" stroke-linecap="round"/><g style="transform-origin:88px 30px;animation:ko-wave 1.4s ease-in-out infinite"><path d="M84 40 q10 -14 8 -26" stroke="#201e1d" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="92" cy="12" r="7" fill="#fff" stroke="#201e1d" stroke-width="2.5"/></g></svg>
+      </div>
+      <div style="position:relative;background:#fff;border-radius:22px;padding:12px 14px;font-size:14px;line-height:1.35;box-shadow:var(--shadow-sm)"><span style="position:absolute;left:-8px;top:22px;width:16px;height:16px;background:#fff;transform:rotate(45deg);border-radius:3px"></span>Hi, I'm <b>Kicky</b>! Let's set up training for your player. Takes 2 minutes.</div>
+    </div>
+    <div>
+      <div class="card-kicker" style="margin-bottom:4px">For parents</div>
+      <h2 style="font-size:30px;margin:0 0 6px">Set up your player</h2>
+      <p style="font-size:14px;color:var(--color-neutral-700);margin:0">We'll build a plan around your space, gear and schedule — no club or coach needed.</p>
+    </div>
+    <div class="field"><label>Child's first name</label><input class="input" placeholder="e.g. Maya" value="{{ name }}" onChange="{{ setName }}" style="font-size:16px;min-height:48px"></div>
+    <div class="field"><label>Age</label>
+      <div style="display:flex;gap:8px">
+        <sc-for list="{{ ages }}" as="a" hint-placeholder-count="3">
+          <button onClick="{{ a.onClick }}" style="flex:1;min-height:48px;border-radius:999px;border:2px solid {{ a.border }};background:{{ a.bg }};color:{{ a.color }};font:600 15px var(--font-body);cursor:pointer">{{ a.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+    <div class="field"><label>What they play with today</label>
+      <div style="display:flex;gap:10px">
+        <sc-for list="{{ playsNow }}" as="p" hint-placeholder-count="3">
+          <button onClick="{{ p.onClick }}" style="flex:1;padding:12px 8px;border-radius:22px;border:2px solid {{ p.border }};background:{{ p.bg }};cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;font:600 12px var(--font-body);color:var(--color-text)"><span style="width:36px;height:36px;border-radius:50%;background:var(--color-accent-2-200);display:grid;place-items:center;font:16px var(--font-heading);color:var(--color-accent-2-800)">{{ p.icon }}</span>{{ p.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:1"></div>
+    <sc-if value="{{ nameMissing }}" hint-placeholder-val="{{ false }}"><div style="font-size:12px;color:var(--color-accent-700);text-align:center">Add a name so Kicky knows who to cheer for</div></sc-if>
+    <button class="btn btn-primary" disabled="{{ nameMissing }}" onClick="{{ go1 }}" style="min-height:56px;font-size:18px;border-radius:999px;box-shadow:0 4px 0 var(--color-accent-700)">Next: snap the training spot</button>
+  </div>
+</div>
+</div>
+</sc-if>
+
+<!-- ═══ S1 Photo & resources ═══ -->
+<sc-if value="{{ s1 }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Photo & resources" style="flex:none;display:flex;flex-direction:column;gap:10px">
+<div style="font-size:12px;font-weight:600;color:var(--color-neutral-700)">2 · Surroundings &amp; gear</div>
+<div style="width:390px;height:844px;border-radius:52px;background:var(--color-accent-2-100);box-shadow:var(--shadow-lg);border:8px solid var(--color-neutral-900);overflow:hidden;position:relative;display:flex;flex-direction:column">
+  <div style="height:48px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 28px 6px;font-size:13px;font-weight:600"><span>9:41</span><span style="width:22px;height:10px;border-radius:3px;border:1.5px solid var(--color-text);padding:1px"><span style="display:block;height:100%;width:80%;background:var(--color-text);border-radius:1px"></span></span></div><svg width="390" height="190" viewBox="0 0 390 190" style="position:absolute;left:0;bottom:0;pointer-events:none;opacity:.7"><g fill="none" stroke="#fff" stroke-width="4"><rect x="-6" y="30" width="402" height="220" rx="8"/><rect x="95" y="30" width="200" height="74" rx="2"/><rect x="145" y="30" width="100" height="30"/><path d="M152 104a44 44 0 0 0 86 0"/><circle cx="195" cy="86" r="3" fill="#fff"/></g></svg>
+  <div style="flex:1;display:flex;flex-direction:column;padding:8px 24px 28px;gap:16px;overflow:auto">
+    <div style="display:flex;align-items:center;gap:12px">
+      <button onClick="{{ go0 }}" class="btn btn-secondary btn-icon" style="width:40px;height:40px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+      <div style="flex:1;height:10px;border-radius:999px;background:var(--color-neutral-300);overflow:hidden"><div style="width:33%;height:100%;background:var(--color-accent);border-radius:999px"></div></div>
+      <span style="font-size:12px;font-weight:600;color:var(--color-neutral-700)">Step 1 of 3</span>
+    </div>
+    <div>
+      <h2 style="font-size:28px;margin:0 0 6px">Where will {{ nameOrKid }} train?</h2>
+      <p style="font-size:14px;color:var(--color-neutral-700);margin:0">Take a photo of the space. Kicky spots what's there and sizes the drills to fit.</p>
+    </div>
+    <div style="position:relative;height:250px;border-radius:28px;overflow:hidden;background:var(--color-accent-2-200)">
+      <image-slot id="ko-space-photo" shape="rounded" radius="28" placeholder="Drop a photo of the garden, yard or hallway" style="width:100%;height:100%"></image-slot>
+      <sc-if value="{{ scanning }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;inset:0;pointer-events:none;border:3px solid var(--color-accent);border-radius:28px;animation:ko-pulse 1s ease-out infinite"></div>
+      </sc-if>
+      <sc-if value="{{ scanned }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;left:14px;bottom:14px;background:#fff;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:600;display:flex;gap:6px;align-items:center;box-shadow:var(--shadow-sm);pointer-events:none;animation:ko-pop .4s ease-out"><span style="width:8px;height:8px;border-radius:50%;background:var(--color-accent-2-500)"></span>Space: ~6 × 4 m · flat grass</div>
+      </sc-if>
+    </div>
+    <button onClick="{{ scan }}" class="btn btn-secondary" style="min-height:48px;font-size:15px;background:#fff;gap:8px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>{{ scanLabel }}</button>
+    <div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px"><h4 style="margin:0;font-size:17px">{{ gearTitle }}</h4><span style="font-size:12px;color:var(--color-neutral-700)">tap to fix</span></div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <sc-for list="{{ gear }}" as="g" hint-placeholder-count="6">
+          <button onClick="{{ g.onClick }}" style="display:inline-flex;align-items:center;gap:6px;padding:9px 14px;border-radius:999px;border:2px solid {{ g.border }};background:{{ g.bg }};color:{{ g.color }};font:600 14px var(--font-body);cursor:pointer;animation:ko-up .35s ease-out both"><span style="font-family:var(--font-heading);font-size:15px">{{ g.mark }}</span>{{ g.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:1"></div>
+    <button class="btn btn-primary" onClick="{{ go2 }}" style="min-height:56px;font-size:18px;box-shadow:0 4px 0 var(--color-accent-700)">Next: time &amp; skills</button>
+  </div>
+</div>
+</div>
+</sc-if>
+
+<!-- ═══ S2 Time & skills ═══ -->
+<sc-if value="{{ s2 }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Time & skills" style="flex:none;display:flex;flex-direction:column;gap:10px">
+<div style="font-size:12px;font-weight:600;color:var(--color-neutral-700)">3 · Time &amp; skills</div>
+<div style="width:390px;height:844px;border-radius:52px;background:var(--color-accent-2-100);box-shadow:var(--shadow-lg);border:8px solid var(--color-neutral-900);overflow:hidden;position:relative;display:flex;flex-direction:column">
+  <div style="height:48px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 28px 6px;font-size:13px;font-weight:600"><span>9:41</span><span style="width:22px;height:10px;border-radius:3px;border:1.5px solid var(--color-text);padding:1px"><span style="display:block;height:100%;width:80%;background:var(--color-text);border-radius:1px"></span></span></div><svg width="390" height="190" viewBox="0 0 390 190" style="position:absolute;left:0;bottom:0;pointer-events:none;opacity:.7"><g fill="none" stroke="#fff" stroke-width="4"><rect x="-6" y="30" width="402" height="220" rx="8"/><rect x="95" y="30" width="200" height="74" rx="2"/><rect x="145" y="30" width="100" height="30"/><path d="M152 104a44 44 0 0 0 86 0"/><circle cx="195" cy="86" r="3" fill="#fff"/></g></svg>
+  <div style="flex:1;display:flex;flex-direction:column;padding:8px 24px 28px;gap:16px;overflow:auto">
+    <div style="display:flex;align-items:center;gap:12px">
+      <button onClick="{{ go1 }}" class="btn btn-secondary btn-icon" style="width:40px;height:40px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+      <div style="flex:1;height:10px;border-radius:999px;background:var(--color-neutral-300);overflow:hidden"><div style="width:66%;height:100%;background:var(--color-accent);border-radius:999px"></div></div>
+      <span style="font-size:12px;font-weight:600;color:var(--color-neutral-700)">Step 2 of 3</span>
+    </div>
+    <h2 style="font-size:28px;margin:0">Time &amp; skills</h2>
+    <div class="field"><label>Minutes per session</label>
+      <div style="display:flex;gap:8px">
+        <sc-for list="{{ minuteOpts }}" as="m" hint-placeholder-count="4">
+          <button onClick="{{ m.onClick }}" style="flex:1;min-height:46px;border-radius:999px;border:2px solid {{ m.border }};background:{{ m.bg }};color:{{ m.color }};font:600 15px var(--font-body);cursor:pointer">{{ m.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+    <div class="field"><label>Training days</label>
+      <div style="display:flex;justify-content:space-between">
+        <sc-for list="{{ dayOpts }}" as="d" hint-placeholder-count="7">
+          <button onClick="{{ d.onClick }}" style="width:42px;height:42px;border-radius:50%;border:2px solid {{ d.border }};background:{{ d.bg }};color:{{ d.color }};font:600 14px var(--font-body);cursor:pointer">{{ d.label }}</button>
+        </sc-for>
+      </div>
+      <div style="font-size:12px;color:var(--color-neutral-700);margin-top:6px">{{ weeklySummary }}</div>
+    </div>
+    <div class="field"><label>Where they're at</label>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <sc-for list="{{ levelOpts }}" as="l" hint-placeholder-count="3">
+          <button onClick="{{ l.onClick }}" style="display:flex;align-items:center;gap:12px;text-align:left;padding:10px 14px;border-radius:22px;border:2px solid {{ l.border }};background:{{ l.bg }};cursor:pointer;color:var(--color-text)"><span style="width:38px;height:38px;flex:none;border-radius:50%;background:var(--color-accent-200);display:grid;place-items:center;font:18px var(--font-heading);color:var(--color-accent-800)">{{ l.stars }}</span><span style="display:flex;flex-direction:column"><b style="font-size:15px">{{ l.label }}</b><span style="font-size:12px;color:var(--color-neutral-700)">{{ l.sub }}</span></span></button>
+        </sc-for>
+      </div>
+    </div>
+    <div class="field"><label>Wants to get better at</label>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <sc-for list="{{ skillOpts }}" as="s" hint-placeholder-count="6">
+          <button onClick="{{ s.onClick }}" style="padding:8px 14px;border-radius:999px;border:2px solid {{ s.border }};background:{{ s.bg }};color:{{ s.color }};font:600 13px var(--font-body);cursor:pointer">{{ s.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:1"></div>
+    <button class="btn btn-primary" onClick="{{ go3 }}" style="min-height:56px;font-size:18px;box-shadow:0 4px 0 var(--color-accent-700)">Hand the phone to {{ nameOrKid }}</button>
+  </div>
+</div>
+</div>
+</sc-if>
+
+<!-- ═══ S3 Pick guide ═══ -->
+<sc-if value="{{ s3 }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Pick your guide" style="flex:none;display:flex;flex-direction:column;gap:10px">
+<div style="font-size:12px;font-weight:600;color:var(--color-neutral-700)">4 · Meet your coach (child)</div>
+<div style="width:390px;height:844px;border-radius:52px;background:var(--color-accent-2-200);box-shadow:var(--shadow-lg);border:8px solid var(--color-neutral-900);overflow:hidden;position:relative;display:flex;flex-direction:column">
+  <div style="height:48px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 28px 6px;font-size:13px;font-weight:600"><span>9:41</span><span style="width:22px;height:10px;border-radius:3px;border:1.5px solid var(--color-text);padding:1px"><span style="display:block;height:100%;width:80%;background:var(--color-text);border-radius:1px"></span></span></div>
+  <div style="flex:1;display:flex;flex-direction:column;padding:8px 22px 28px;gap:16px;overflow:auto">
+    <div style="display:flex;align-items:flex-start;gap:12px">
+      <svg width="64" height="72" viewBox="0 0 100 112" style="flex:none;animation:ko-bob 3s ease-in-out infinite"><path d="M28 92 q-4 12 6 14 h10 q6 0 4 -6 l-4 -10z" fill="#d67f48"/><path d="M72 92 q4 12 -6 14 h-10 q-6 0 -4 -6 l4 -10z" fill="#d67f48"/><circle cx="50" cy="50" r="46" fill="#fff" stroke="#201e1d" stroke-width="3"/><polygon points="50,6 60,13 57,25 43,25 40,13" fill="#201e1d"/><polygon points="9,38 21,34 28,45 20,56 8,52" fill="#201e1d"/><polygon points="91,38 79,34 72,45 80,56 92,52" fill="#201e1d"/><polygon points="24,86 34,78 46,86 42,96 30,96" fill="#201e1d"/><polygon points="76,86 66,78 54,86 58,96 70,96" fill="#201e1d"/><circle cx="38" cy="48" r="6" fill="#201e1d"/><circle cx="62" cy="48" r="6" fill="#201e1d"/><circle cx="40" cy="46" r="2" fill="#fff"/><circle cx="64" cy="46" r="2" fill="#fff"/><circle cx="30" cy="60" r="4" fill="#ffc6a5"/><circle cx="70" cy="60" r="4" fill="#ffc6a5"/><path d="M40 62 q10 10 20 0" stroke="#201e1d" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+      <div style="position:relative;background:#fff;border-radius:22px;padding:12px 14px;font-size:14px;line-height:1.35;box-shadow:var(--shadow-sm)"><span style="position:absolute;left:-8px;top:20px;width:16px;height:16px;background:#fff;transform:rotate(45deg);border-radius:3px"></span>Hey <b>{{ nameOrKid }}</b>! Meet your coach — they'll guide every drill.</div>
+    </div>
+    <h2 style="font-size:30px;margin:0;line-height:1.05">Meet your coach</h2>
+    <div style="background:#fff;border-radius:30px;padding:22px 18px;display:flex;flex-direction:column;align-items:center;gap:10px;box-shadow:var(--shadow-sm)">
+      <image-slot id="ko-coach-mascot" shape="circle" placeholder="New mascot goes here" style="width:200px;height:200px"></image-slot>
+      <b style="font:22px var(--font-heading)">Your coach</b>
+      <span class="tag tag-accent-2" style="font-weight:600">Mascot to be added</span>
+      <span style="font-size:13px;color:var(--color-neutral-700);text-align:center;line-height:1.35">Your coach explains every drill, cheers you on and hands out the rewards.</span>
+    </div>
+    <div style="flex:1"></div>
+    <button class="btn btn-primary" onClick="{{ go4 }}" style="min-height:56px;font-size:18px;box-shadow:0 4px 0 var(--color-accent-700)">Let's go!</button>
+  </div>
+</div>
+</div>
+</sc-if>
+
+<!-- ═══ S4 Map ═══ -->
+<sc-if value="{{ s4 }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Training map" style="flex:none;display:flex;flex-direction:column;gap:10px">
+<div style="font-size:12px;font-weight:600;color:var(--color-neutral-700)">5 · Training path</div>
+<div style="width:390px;height:844px;border-radius:52px;background:repeating-linear-gradient(180deg,var(--color-accent-2-300) 0 64px,var(--color-accent-2-400) 64px 128px);box-shadow:var(--shadow-lg);border:8px solid var(--color-neutral-900);overflow:hidden;position:relative;display:flex;flex-direction:column">
+  <div style="height:48px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 28px 6px;font-size:13px;font-weight:600"><span>9:41</span><span style="width:22px;height:10px;border-radius:3px;border:1.5px solid var(--color-text);padding:1px"><span style="display:block;height:100%;width:80%;background:var(--color-text);border-radius:1px"></span></span></div>
+  <div style="padding:6px 20px 0;display:flex;flex-direction:column;gap:10px;position:relative;z-index:2">
+    <div style="display:flex;align-items:center;gap:10px">
+      <span style="width:42px;height:42px;flex:none;border-radius:50%;border:2px dashed var(--color-accent-2-600);background:var(--color-accent-2-100);display:grid;place-items:center;font:600 9px var(--font-body);color:var(--color-accent-2-800);text-align:center;line-height:1.1;">mascot</span>
+      <span style="font:20px var(--font-heading)">Hi {{ nameOrKid }}!</span>
+      <span style="flex:1"></span>
+      <span style="display:flex;align-items:center;gap:4px;background:#fff;border-radius:999px;padding:6px 10px;font-size:13px;font-weight:700;box-shadow:var(--shadow-sm)"><svg width="16" height="16" viewBox="0 0 24 24" fill="var(--color-accent)" stroke="var(--color-accent)" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>{{ streak }}</span>
+      <span style="display:flex;align-items:center;gap:4px;background:#fff;border-radius:999px;padding:6px 10px;font-size:13px;font-weight:700;box-shadow:var(--shadow-sm)"><svg width="16" height="16" viewBox="0 0 24 24" fill="var(--color-accent-2-600)" stroke="var(--color-accent-2-600)" stroke-width="2"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>{{ xp }}</span>
+    </div>
+    <div style="background:#fff;border-radius:22px;padding:12px 16px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow-md)">
+      <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+        <span style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-accent-700);font-weight:700">Unit 1 · Back garden basics</span>
+        <span style="font:17px var(--font-heading)">Level {{ level }} · {{ doneCount }}/6 drills</span>
+        <div style="height:8px;border-radius:999px;background:var(--color-neutral-200);overflow:hidden"><div style="width:{{ unitPct }};height:100%;background:var(--color-accent);border-radius:999px;transition:width .5s"></div></div>
+      </div>
+      <span class="tag tag-accent" style="font-weight:700">{{ minutes }} min</span>
+    </div>
+  </div>
+  <div style="flex:1;position:relative;overflow:hidden">
+    <svg width="390" height="520" viewBox="0 0 390 520" style="position:absolute;left:0;top:10px"><g fill="none" stroke="rgba(255,255,255,.6)" stroke-width="3"><line x1="0" y1="262" x2="390" y2="262"/><circle cx="195" cy="262" r="52"/><rect x="85" y="-10" width="220" height="62" rx="4"/><rect x="140" y="-10" width="110" height="26"/><rect x="85" y="468" width="220" height="70" rx="4"/><rect x="140" y="500" width="110" height="40"/></g><g stroke="#fff" stroke-width="3" fill="rgba(255,255,255,.5)"><rect x="150" y="2" width="90" height="14" rx="3"/></g><g stroke="rgba(255,255,255,.7)" stroke-width="1"><path d="M160 2v14M170 2v14M180 2v14M190 2v14M200 2v14M210 2v14M220 2v14M230 2v14M150 9h90"/></g><g fill="rgba(255,255,255,.7)"><circle cx="20" cy="340" r="4"/><circle cx="360" cy="180" r="4"/></g><path d="M80 440 C140 440 130 370 190 370 S300 340 300 290 S250 210 190 210 S80 180 80 130 S150 50 200 50" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="30" stroke-linecap="round"/><path d="M80 440 C140 440 130 370 190 370 S300 340 300 290 S250 210 190 210 S80 180 80 130 S150 50 200 50" fill="none" stroke="var(--color-neutral-100)" stroke-width="20" stroke-linecap="round" stroke-dasharray="1 26"/></svg>
+    <sc-for list="{{ nodes }}" as="n" hint-placeholder-count="6">
+      <div style="position:absolute;left:{{ n.left }}px;top:{{ n.top }}px;width:76px;display:flex;flex-direction:column;align-items:center;gap:4px">
+        <sc-if value="{{ n.current }}" hint-placeholder-val="{{ false }}"><div style="background:#fff;border-radius:999px;padding:5px 12px;font:13px var(--font-heading);color:var(--color-accent-700);box-shadow:var(--shadow-sm);animation:ko-bob 1.6s ease-in-out infinite;white-space:nowrap">Start here!</div></sc-if>
+        <button onClick="{{ n.onClick }}" style="width:64px;height:64px;border-radius:50%;border:0;background:{{ n.bg }};color:{{ n.color }};display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 0 {{ n.shadow }};animation:{{ n.anim }}" style-hover="transform:translateY(-2px)">{{ n.icon }}</button>
+        <span style="font-size:12px;font-weight:700;text-align:center;color:var(--color-accent-2-900);line-height:1.2;background:rgba(255,255,255,.55);border-radius:8px;padding:2px 6px">{{ n.label }}</span>
+      </div>
+    </sc-for>
+    <svg width="72" height="80" viewBox="0 0 100 112" style="position:absolute;right:26px;bottom:24px;animation:ko-bob 3s ease-in-out infinite"><path d="M28 92 q-4 12 6 14 h10 q6 0 4 -6 l-4 -10z" fill="{{ bootColor }}"/><path d="M72 92 q4 12 -6 14 h-10 q-6 0 -4 -6 l4 -10z" fill="{{ bootColor }}"/><circle cx="50" cy="50" r="46" fill="#fff" stroke="#201e1d" stroke-width="3"/><polygon points="50,6 60,13 57,25 43,25 40,13" fill="#201e1d"/><polygon points="9,38 21,34 28,45 20,56 8,52" fill="#201e1d"/><polygon points="91,38 79,34 72,45 80,56 92,52" fill="#201e1d"/><polygon points="24,86 34,78 46,86 42,96 30,96" fill="#201e1d"/><polygon points="76,86 66,78 54,86 58,96 70,96" fill="#201e1d"/><circle cx="38" cy="48" r="6" fill="#201e1d"/><circle cx="62" cy="48" r="6" fill="#201e1d"/><circle cx="40" cy="46" r="2" fill="#fff"/><circle cx="64" cy="46" r="2" fill="#fff"/><circle cx="30" cy="60" r="4" fill="#ffc6a5"/><circle cx="70" cy="60" r="4" fill="#ffc6a5"/><path d="M40 62 q10 10 20 0" stroke="#201e1d" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+  </div>
+  <div style="margin:0 14px 14px;background:#fff;border-radius:999px;padding:8px;display:flex;justify-content:space-around;box-shadow:var(--shadow-md);position:relative;z-index:2">
+    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+      <button onClick="{{ t.onClick }}" style="display:flex;flex-direction:column;align-items:center;gap:2px;min-width:64px;padding:6px 10px;border-radius:999px;border:0;background:{{ t.bg }};color:{{ t.color }};font:600 11px var(--font-body);cursor:pointer" style-hover="background:var(--color-accent-100)"><span style="display:block">{{ t.icon }}</span>{{ t.label }}</button>
+    </sc-for>
+  </div>
+</div>
+</div>
+</sc-if>
+
+<!-- ═══ S7 Challenges ═══ -->
+<sc-if value="{{ s7 }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Challenges" style="flex:none;display:flex;flex-direction:column;gap:10px">
+<div style="font-size:12px;font-weight:600;color:var(--color-neutral-700)">8 · Weekly challenges</div>
+<div style="width:390px;height:844px;border-radius:52px;background:var(--color-accent-2-100);box-shadow:var(--shadow-lg);border:8px solid var(--color-neutral-900);overflow:hidden;position:relative;display:flex;flex-direction:column">
+  <div style="height:48px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 28px 6px;font-size:13px;font-weight:600"><span>9:41</span><span style="width:22px;height:10px;border-radius:3px;border:1.5px solid var(--color-text);padding:1px"><span style="display:block;height:100%;width:80%;background:var(--color-text);border-radius:1px"></span></span></div><svg width="390" height="190" viewBox="0 0 390 190" style="position:absolute;left:0;bottom:0;pointer-events:none;opacity:.7"><g fill="none" stroke="#fff" stroke-width="4"><rect x="-6" y="30" width="402" height="220" rx="8"/><rect x="95" y="30" width="200" height="74" rx="2"/><rect x="145" y="30" width="100" height="30"/><path d="M152 104a44 44 0 0 0 86 0"/><circle cx="195" cy="86" r="3" fill="#fff"/></g></svg>
+  <div style="flex:1;display:flex;flex-direction:column;padding:8px 22px 12px;gap:14px;overflow:auto">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between"><div><div class="card-kicker">This week</div><h2 style="font-size:30px;margin:0;line-height:1.05">Challenges</h2></div><span class="tag tag-accent" style="font-weight:700">{{ daysLeft }} days left</span></div>
+    <div style="background:var(--color-accent);border-radius:30px;padding:18px;color:#fff;display:flex;gap:14px;align-items:center;box-shadow:var(--shadow-md)">
+      <div style="width:72px;height:72px;flex:none;border-radius:50%;background:conic-gradient(#fff {{ weeklyPct }}, rgba(255,255,255,.25) 0);display:grid;place-items:center"><span style="width:56px;height:56px;border-radius:50%;background:var(--color-accent);display:grid;place-items:center;font:16px var(--font-heading)">{{ weeklyPct }}</span></div>
+      <div style="flex:1"><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;opacity:.85">Big challenge</div><div style="font:22px var(--font-heading);line-height:1.1">200 wall passes</div><div style="font-size:13px;margin-top:2px">{{ weeklyDone }}/200 · reward: the away kit</div></div>
+    </div>
+    <h4 style="margin:4px 0 0;font-size:17px">Side quests</h4>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{ quests }}" as="q" hint-placeholder-count="4">
+        <div style="background:#fff;border-radius:22px;padding:12px 14px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow-sm)">
+          <span style="width:44px;height:44px;flex:none;border-radius:50%;background:{{ q.bg }};display:grid;place-items:center;font:18px var(--font-heading);color:{{ q.fg }}">{{ q.icon }}</span>
+          <div style="flex:1;display:flex;flex-direction:column;gap:5px"><div style="display:flex;justify-content:space-between;font-size:14px"><b>{{ q.title }}</b><span style="font-weight:700;color:var(--color-accent-2-700)">+{{ q.xp }} XP</span></div><div style="font-size:12px;color:var(--color-neutral-700)">{{ q.sub }}</div><div style="height:8px;border-radius:999px;background:var(--color-neutral-200);overflow:hidden"><div style="width:{{ q.pct }};height:100%;background:{{ q.bar }};border-radius:999px"></div></div></div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="background:var(--color-accent-2-200);border-radius:22px;padding:12px 14px;display:flex;gap:12px;align-items:center"><span style="width:44px;height:44px;flex:none;border-radius:50%;border:2px dashed var(--color-accent-2-600);background:var(--color-accent-2-100);display:grid;place-items:center;font:600 9px var(--font-body);color:var(--color-accent-2-800);text-align:center;line-height:1.1;">mascot</span><div style="font-size:13px;line-height:1.35"><b>{{ guideName }}:</b> {{ questTip }}</div></div>
+  </div>
+  <div style="margin:0 14px 14px;background:#fff;border-radius:999px;padding:8px;display:flex;justify-content:space-around;box-shadow:var(--shadow-md)">
+    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+      <button onClick="{{ t.onClick }}" style="display:flex;flex-direction:column;align-items:center;gap:2px;min-width:64px;padding:6px 10px;border-radius:999px;border:0;background:{{ t.bg }};color:{{ t.color }};font:600 11px var(--font-body);cursor:pointer" style-hover="background:var(--color-accent-100)"><span style="display:block">{{ t.icon }}</span>{{ t.label }}</button>
+    </sc-for>
+  </div>
+</div>
+</div>
+</sc-if>
+
+<!-- ═══ S8 Badges ═══ -->
+<sc-if value="{{ s8 }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Badges" style="flex:none;display:flex;flex-direction:column;gap:10px">
+<div style="font-size:12px;font-weight:600;color:var(--color-neutral-700)">9 · Skill badges</div>
+<div style="width:390px;height:844px;border-radius:52px;background:var(--color-accent-2-100);box-shadow:var(--shadow-lg);border:8px solid var(--color-neutral-900);overflow:hidden;position:relative;display:flex;flex-direction:column">
+  <div style="height:48px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 28px 6px;font-size:13px;font-weight:600"><span>9:41</span><span style="width:22px;height:10px;border-radius:3px;border:1.5px solid var(--color-text);padding:1px"><span style="display:block;height:100%;width:80%;background:var(--color-text);border-radius:1px"></span></span></div><svg width="390" height="190" viewBox="0 0 390 190" style="position:absolute;left:0;bottom:0;pointer-events:none;opacity:.7"><g fill="none" stroke="#fff" stroke-width="4"><rect x="-6" y="30" width="402" height="220" rx="8"/><rect x="95" y="30" width="200" height="74" rx="2"/><rect x="145" y="30" width="100" height="30"/><path d="M152 104a44 44 0 0 0 86 0"/><circle cx="195" cy="86" r="3" fill="#fff"/></g></svg>
+  <div style="flex:1;display:flex;flex-direction:column;padding:8px 22px 12px;gap:14px;overflow:auto">
+    <div><div class="card-kicker">{{ badgeCount }} of 12 earned</div><h2 style="font-size:30px;margin:0;line-height:1.05">Badges</h2></div>
+    <div style="background:#fff;border-radius:30px;padding:16px;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow-sm)">
+      <div style="position:relative;width:64px;height:64px;flex:none"><span style="position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--color-accent-2-500) {{ levelPct }}, var(--color-neutral-200) 0)"></span><span style="position:absolute;inset:7px;border-radius:50%;background:#fff;display:grid;place-items:center;font:22px var(--font-heading)">{{ level }}</span></div>
+      <div style="flex:1"><b style="font:18px var(--font-heading)">Level {{ level }} player</b><div style="font-size:13px;color:var(--color-neutral-700)">{{ xpToNext }} XP to level {{ nextLevel }}</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+      <sc-for list="{{ badges }}" as="b" hint-placeholder-count="12">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center">
+          <span style="width:84px;height:84px;border-radius:50%;background:{{ b.bg }};display:grid;place-items:center;box-shadow:{{ b.shadow }};opacity:{{ b.opacity }}"><span style="width:62px;height:62px;border-radius:50%;border:3px dashed {{ b.ring }};display:grid;place-items:center;font:24px var(--font-heading);color:{{ b.fg }}">{{ b.icon }}</span></span>
+          <span style="font-size:12px;font-weight:700;line-height:1.2;color:{{ b.text }}">{{ b.name }}</span>
+          <span style="font-size:11px;color:var(--color-neutral-600);line-height:1.2">{{ b.how }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  <div style="margin:0 14px 14px;background:#fff;border-radius:999px;padding:8px;display:flex;justify-content:space-around;box-shadow:var(--shadow-md)">
+    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+      <button onClick="{{ t.onClick }}" style="display:flex;flex-direction:column;align-items:center;gap:2px;min-width:64px;padding:6px 10px;border-radius:999px;border:0;background:{{ t.bg }};color:{{ t.color }};font:600 11px var(--font-body);cursor:pointer" style-hover="background:var(--color-accent-100)"><span style="display:block">{{ t.icon }}</span>{{ t.label }}</button>
+    </sc-for>
+  </div>
+</div>
+</div>
+</sc-if>
+
+<!-- ═══ S9 Locker ═══ -->
+<sc-if value="{{ s9 }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Locker" style="flex:none;display:flex;flex-direction:column;gap:10px">
+<div style="font-size:12px;font-weight:600;color:var(--color-neutral-700)">10 · Locker (kits &amp; outfits)</div>
+<div style="width:390px;height:844px;border-radius:52px;background:var(--color-accent-2-100);box-shadow:var(--shadow-lg);border:8px solid var(--color-neutral-900);overflow:hidden;position:relative;display:flex;flex-direction:column">
+  <div style="height:48px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 28px 6px;font-size:13px;font-weight:600"><span>9:41</span><span style="width:22px;height:10px;border-radius:3px;border:1.5px solid var(--color-text);padding:1px"><span style="display:block;height:100%;width:80%;background:var(--color-text);border-radius:1px"></span></span></div><svg width="390" height="190" viewBox="0 0 390 190" style="position:absolute;left:0;bottom:0;pointer-events:none;opacity:.7"><g fill="none" stroke="#fff" stroke-width="4"><rect x="-6" y="30" width="402" height="220" rx="8"/><rect x="95" y="30" width="200" height="74" rx="2"/><rect x="145" y="30" width="100" height="30"/><path d="M152 104a44 44 0 0 0 86 0"/><circle cx="195" cy="86" r="3" fill="#fff"/></g></svg>
+  <div style="flex:1;display:flex;flex-direction:column;padding:8px 22px 12px;gap:14px;overflow:auto">
+    <div><div class="card-kicker">{{ xp }} XP to spend</div><h2 style="font-size:30px;margin:0;line-height:1.05">Locker</h2></div>
+    <div style="background:var(--color-accent-2-200);border-radius:30px;padding:16px;display:flex;align-items:center;gap:14px">
+      <svg width="80" height="90" viewBox="0 0 100 112" style="flex:none;animation:ko-bob 3s ease-in-out infinite"><path d="M28 92 q-4 12 6 14 h10 q6 0 4 -6 l-4 -10z" fill="{{ bootColor }}"/><path d="M72 92 q4 12 -6 14 h-10 q-6 0 -4 -6 l4 -10z" fill="{{ bootColor }}"/><circle cx="50" cy="50" r="46" fill="#fff" stroke="#201e1d" stroke-width="3"/><polygon points="50,6 60,13 57,25 43,25 40,13" fill="#201e1d"/><polygon points="9,38 21,34 28,45 20,56 8,52" fill="#201e1d"/><polygon points="91,38 79,34 72,45 80,56 92,52" fill="#201e1d"/><polygon points="24,86 34,78 46,86 42,96 30,96" fill="#201e1d"/><polygon points="76,86 66,78 54,86 58,96 70,96" fill="#201e1d"/><circle cx="38" cy="48" r="6" fill="#201e1d"/><circle cx="62" cy="48" r="6" fill="#201e1d"/><circle cx="40" cy="46" r="2" fill="#fff"/><circle cx="64" cy="46" r="2" fill="#fff"/><circle cx="30" cy="60" r="4" fill="#ffc6a5"/><circle cx="70" cy="60" r="4" fill="#ffc6a5"/><path d="M40 62 q10 10 20 0" stroke="#201e1d" stroke-width="3" fill="none" stroke-linecap="round"/><sc-if value="{{ capOn }}" hint-placeholder-val="{{ false }}"><path d="M12 30 q38 -40 76 0 z" fill="{{ capColor }}"/><path d="M8 30 h84 q4 6 -6 6 h-72 q-10 0 -6 -6z" fill="{{ capColor }}"/></sc-if></svg>
+      <div style="flex:1"><b style="font:18px var(--font-heading)">Kicky's outfit</b><div style="font-size:13px;color:var(--color-neutral-700);margin-bottom:8px">Tap an item to wear it</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <sc-for list="{{ outfits }}" as="o" hint-placeholder-count="4">
+            <button onClick="{{ o.onClick }}" style="display:flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;border:2px solid {{ o.border }};background:{{ o.bg }};font:600 12px var(--font-body);color:var(--color-text);cursor:pointer;opacity:{{ o.opacity }}"><span style="width:14px;height:14px;border-radius:50%;background:{{ o.swatch }}"></span>{{ o.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+    <h4 style="margin:0;font-size:17px">Kits</h4>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{ kits }}" as="k" hint-placeholder-count="3">
+        <button onClick="{{ k.onClick }}" style="background:#fff;border-radius:22px;padding:12px 14px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow-sm);border:2px solid {{ k.border }};cursor:pointer;text-align:left;color:var(--color-text)">
+          <span style="width:50px;height:50px;flex:none;border-radius:50%;border:2px dashed var(--color-accent-2-600);background:var(--color-accent-2-100);display:grid;place-items:center;font:600 9px var(--font-body);color:var(--color-accent-2-800);text-align:center;line-height:1.1;opacity:{{ k.opacity }}">mascot</span>
+          <span style="flex:1;display:flex;flex-direction:column"><b style="font-size:14px">{{ k.name }}</b><span style="font-size:12px;color:var(--color-neutral-700)">{{ k.sub }}</span></span>
+          <span class="tag {{ k.tag }}" style="font-weight:700">{{ k.status }}</span>
+        </button>
+      </sc-for>
+    </div>
+  </div>
+  <div style="margin:0 14px 14px;background:#fff;border-radius:999px;padding:8px;display:flex;justify-content:space-around;box-shadow:var(--shadow-md)">
+    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+      <button onClick="{{ t.onClick }}" style="display:flex;flex-direction:column;align-items:center;gap:2px;min-width:64px;padding:6px 10px;border-radius:999px;border:0;background:{{ t.bg }};color:{{ t.color }};font:600 11px var(--font-body);cursor:pointer" style-hover="background:var(--color-accent-100)"><span style="display:block">{{ t.icon }}</span>{{ t.label }}</button>
+    </sc-for>
+  </div>
+</div>
+</div>
+</sc-if>
+
+<!-- ═══ S5 Drill ═══ -->
+<sc-if value="{{ s5 }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Drill session" style="flex:none;display:flex;flex-direction:column;gap:10px">
+<div style="font-size:12px;font-weight:600;color:var(--color-neutral-700)">6 · Drill</div>
+<div style="width:390px;height:844px;border-radius:52px;background:var(--color-accent-2-100);box-shadow:var(--shadow-lg);border:8px solid var(--color-neutral-900);overflow:hidden;position:relative;display:flex;flex-direction:column">
+  <div style="height:48px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 28px 6px;font-size:13px;font-weight:600"><span>9:41</span><span style="width:22px;height:10px;border-radius:3px;border:1.5px solid var(--color-text);padding:1px"><span style="display:block;height:100%;width:80%;background:var(--color-text);border-radius:1px"></span></span></div><svg width="390" height="190" viewBox="0 0 390 190" style="position:absolute;left:0;bottom:0;pointer-events:none;opacity:.7"><g fill="none" stroke="#fff" stroke-width="4"><rect x="-6" y="30" width="402" height="220" rx="8"/><rect x="95" y="30" width="200" height="74" rx="2"/><rect x="145" y="30" width="100" height="30"/><path d="M152 104a44 44 0 0 0 86 0"/><circle cx="195" cy="86" r="3" fill="#fff"/></g></svg>
+  <div style="flex:1;display:flex;flex-direction:column;padding:8px 24px 28px;gap:16px;overflow:auto">
+    <div style="display:flex;align-items:center;gap:12px">
+      <button onClick="{{ go4 }}" class="btn btn-secondary btn-icon" style="width:40px;height:40px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      <div style="flex:1;display:flex;gap:6px">
+        <div style="flex:1;height:10px;border-radius:999px;background:var(--color-accent)"></div>
+        <div style="flex:1;height:10px;border-radius:999px;background:{{ step2Bg }}"></div>
+        <div style="flex:1;height:10px;border-radius:999px;background:{{ step3Bg }}"></div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:12px">
+      <span style="width:56px;height:56px;flex:none;border-radius:50%;border:2px dashed var(--color-accent-2-600);background:var(--color-accent-2-100);display:grid;place-items:center;font:600 9px var(--font-body);color:var(--color-accent-2-800);text-align:center;line-height:1.1;">mascot</span>
+      <div style="position:relative;background:#fff;border-radius:22px;padding:12px 14px;font-size:14px;line-height:1.35;box-shadow:var(--shadow-sm);flex:1"><span style="position:absolute;left:-8px;top:18px;width:16px;height:16px;background:#fff;transform:rotate(45deg);border-radius:3px"></span><b style="color:var(--color-accent-700)">{{ guideName }}:</b> {{ guideTip }}</div>
+    </div>
+    <div>
+      <div style="display:flex;gap:6px;margin-bottom:6px"><span class="tag tag-accent-2" style="font-weight:700">Needs: ball + wall</span><span class="tag tag-neutral" style="font-weight:700">~3 min</span></div>
+      <h2 style="font-size:30px;margin:0;line-height:1.05">Wall passes</h2>
+      <p style="font-size:14px;color:var(--color-neutral-700);margin:4px 0 0">20 passes against the wall with your weaker foot. Keep the ball rolling.</p>
+    </div>
+    <div style="display:flex;justify-content:center;padding:6px 0">
+      <button onClick="{{ toggleTimer }}" style="position:relative;width:190px;height:190px;border-radius:50%;border:0;background:#fff;box-shadow:var(--shadow-md);cursor:pointer;display:grid;place-items:center">
+        <svg width="190" height="190" viewBox="0 0 190 190" style="position:absolute;inset:0;transform:rotate(-90deg)"><circle cx="95" cy="95" r="84" fill="none" stroke="var(--color-neutral-200)" stroke-width="12"/><circle cx="95" cy="95" r="84" fill="none" stroke="var(--color-accent)" stroke-width="12" stroke-linecap="round" stroke-dasharray="527.8" stroke-dashoffset="{{ dashOffset }}" style="transition:stroke-dashoffset 1s linear"/></svg>
+        <span style="position:relative;display:flex;flex-direction:column;align-items:center"><span style="font:44px var(--font-heading);color:var(--color-text);line-height:1">{{ timeLabel }}</span><span style="font-size:12px;font-weight:700;color:var(--color-accent-700);text-transform:uppercase;letter-spacing:.08em">{{ timerHint }}</span></span>
+      </button>
+    </div>
+    <div style="background:#fff;border-radius:22px;padding:12px 16px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow-sm)">
+      <sc-for list="{{ drillSteps }}" as="d" hint-placeholder-count="3">
+        <div style="display:flex;gap:10px;align-items:center;font-size:14px"><span style="width:26px;height:26px;flex:none;border-radius:50%;background:var(--color-accent-2-200);color:var(--color-accent-2-800);display:grid;place-items:center;font:14px var(--font-heading)">{{ d.n }}</span>{{ d.text }}</div>
+      </sc-for>
+    </div>
+    <div style="flex:1"></div>
+    <button class="btn btn-primary" onClick="{{ finishDrill }}" style="min-height:56px;font-size:18px;box-shadow:0 4px 0 var(--color-accent-700)">I did it! +30 XP</button>
+  </div>
+</div>
+</div>
+</sc-if>
+
+<!-- ═══ S6 Rewards ═══ -->
+<sc-if value="{{ s6 }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Rewards" style="flex:none;display:flex;flex-direction:column;gap:10px">
+<div style="font-size:12px;font-weight:600;color:var(--color-neutral-700)">7 · Rewards</div>
+<div style="width:390px;height:844px;border-radius:52px;background:var(--color-accent-100);box-shadow:var(--shadow-lg);border:8px solid var(--color-neutral-900);overflow:hidden;position:relative;display:flex;flex-direction:column">
+  <div style="height:48px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 28px 6px;font-size:13px;font-weight:600"><span>9:41</span><span style="width:22px;height:10px;border-radius:3px;border:1.5px solid var(--color-text);padding:1px"><span style="display:block;height:100%;width:80%;background:var(--color-text);border-radius:1px"></span></span></div>
+  <div style="flex:1;display:flex;flex-direction:column;padding:12px 24px 28px;gap:14px;overflow:auto;align-items:stretch">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding-top:10px">
+      <div style="position:relative;width:150px;height:150px;display:grid;place-items:center;animation:ko-pop .6s ease-out">
+        <span style="position:absolute;inset:0;border-radius:50%;background:var(--color-accent-200)"></span>
+        <span style="position:absolute;inset:16px;border-radius:50%;background:var(--color-accent-300)"></span>
+        <svg width="96" height="108" viewBox="0 0 100 112" style="position:relative;animation:ko-bob 2s ease-in-out infinite"><path d="M28 92 q-4 12 6 14 h10 q6 0 4 -6 l-4 -10z" fill="#d67f48"/><path d="M72 92 q4 12 -6 14 h-10 q-6 0 -4 -6 l4 -10z" fill="#d67f48"/><circle cx="50" cy="50" r="46" fill="#fff" stroke="#201e1d" stroke-width="3"/><polygon points="50,6 60,13 57,25 43,25 40,13" fill="#201e1d"/><polygon points="9,38 21,34 28,45 20,56 8,52" fill="#201e1d"/><polygon points="91,38 79,34 72,45 80,56 92,52" fill="#201e1d"/><polygon points="24,86 34,78 46,86 42,96 30,96" fill="#201e1d"/><polygon points="76,86 66,78 54,86 58,96 70,96" fill="#201e1d"/><path d="M32 48 q6 -6 12 0" stroke="#201e1d" stroke-width="3.5" fill="none" stroke-linecap="round"/><path d="M56 48 q6 -6 12 0" stroke="#201e1d" stroke-width="3.5" fill="none" stroke-linecap="round"/><circle cx="30" cy="60" r="4" fill="#ffc6a5"/><circle cx="70" cy="60" r="4" fill="#ffc6a5"/><path d="M36 60 q14 16 28 0" stroke="#201e1d" stroke-width="3" fill="#201e1d" stroke-linecap="round"/></svg>
+      </div>
+      <h2 style="font-size:32px;margin:6px 0 0;text-align:center;line-height:1.05">Drill done!</h2>
+      <p style="font-size:14px;color:var(--color-neutral-700);margin:0;text-align:center">{{ guideName }} says: {{ praise }}</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div style="background:#fff;border-radius:22px;padding:14px;display:flex;flex-direction:column;align-items:center;gap:2px;box-shadow:var(--shadow-sm);animation:ko-up .4s .1s ease-out both"><span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-accent-2-700)">XP earned</span><span style="font:34px var(--font-heading);color:var(--color-accent-2-700)">+30</span><span style="font-size:12px;color:var(--color-neutral-700)">{{ xp }} total · Level {{ level }}</span></div>
+      <div style="background:#fff;border-radius:22px;padding:14px;display:flex;flex-direction:column;align-items:center;gap:2px;box-shadow:var(--shadow-sm);animation:ko-up .4s .2s ease-out both"><span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-accent-700)">Streak</span><span style="font:34px var(--font-heading);color:var(--color-accent-700)">{{ streak }}</span><span style="font-size:12px;color:var(--color-neutral-700)">days in a row</span></div>
+    </div>
+    <div style="background:#fff;border-radius:22px;padding:14px 16px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow-sm);animation:ko-up .4s .3s ease-out both">
+      <span style="width:52px;height:52px;flex:none;border-radius:50%;background:var(--color-accent-2-500);display:grid;place-items:center;box-shadow:0 4px 0 var(--color-accent-2-700)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></span>
+      <div style="flex:1;display:flex;flex-direction:column"><span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-accent-2-700)">New badge</span><b style="font:18px var(--font-heading)">Weak-foot Wizard I</b><span style="font-size:12px;color:var(--color-neutral-700)">First 20 passes with your other foot</span></div>
+    </div>
+    <div style="background:#fff;border-radius:22px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;box-shadow:var(--shadow-sm);animation:ko-up .4s .4s ease-out both">
+      <div style="display:flex;align-items:center;gap:10px"><span style="width:40px;height:40px;flex:none;border-radius:50%;border:2px dashed var(--color-accent-2-600);background:var(--color-accent-2-100);display:grid;place-items:center;font:600 9px var(--font-body);color:var(--color-accent-2-800);text-align:center;line-height:1.1;">mascot</span><div style="flex:1"><b style="font-size:14px">Away kit</b><div style="font-size:12px;color:var(--color-neutral-700)">Unlocks after {{ kitLeft }} more drills</div></div><span style="font:16px var(--font-heading);color:var(--color-accent-700)">{{ doneCount }}/5</span></div>
+      <div style="height:10px;border-radius:999px;background:var(--color-neutral-200);overflow:hidden"><div style="width:{{ kitPct }};height:100%;background:var(--color-accent);border-radius:999px;transition:width .6s"></div></div>
+    </div>
+    <div style="background:#fff;border-radius:22px;padding:14px 16px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow-sm);animation:ko-up .4s .5s ease-out both">
+      <div style="flex:1"><span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-accent-700)">Weekly challenge</span><div style="font-size:14px"><b>200 wall passes</b> · {{ weeklyDone }}/200</div></div>
+      <div style="width:56px;height:56px;border-radius:50%;background:conic-gradient(var(--color-accent) {{ weeklyPct }}, var(--color-neutral-200) 0);display:grid;place-items:center"><span style="width:42px;height:42px;border-radius:50%;background:#fff;display:grid;place-items:center;font:13px var(--font-heading)">{{ weeklyPct }}</span></div>
+    </div>
+    <div style="flex:1"></div>
+    <button class="btn btn-primary" onClick="{{ go4 }}" style="min-height:56px;font-size:18px;box-shadow:0 4px 0 var(--color-accent-700)">Back to the pitch</button>
+  </div>
+</div>
+</div>
+</sc-if>
+
+</div>
+
+<div style="max-width:720px;font-size:13px;color:var(--color-neutral-700);display:flex;flex-direction:column;gap:4px">
+  <b style="color:var(--color-text)">Next steps</b>
+  <span>· Drop the new mascot into the circle on the coach screen; the small dashed "mascot" spots mark where it appears elsewhere.</span>
+  <span>· Photo detection flow: connect to on-device vision to fill the gear chips automatically.</span>
+  <span>· Locker outfits unlock by XP (sage boots at 100, cap at 150) — finish drills to see Kicky change.</span>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;view&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;prototype&quot;,&quot;all screens&quot;],&quot;default&quot;:&quot;prototype&quot;,&quot;tsType&quot;:&quot;'prototype' | 'all screens'&quot;,&quot;section&quot;:&quot;Layout&quot;},&quot;guideTone&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;cheer&quot;,&quot;coach&quot;],&quot;default&quot;:&quot;cheer&quot;,&quot;tsType&quot;:&quot;'cheer' | 'coach'&quot;,&quot;section&quot;:&quot;Copy&quot;}}">
+class Component extends DCLogic {
+  state = {
+    step: 0, name: '', age: '10–11', plays: 'Garden',
+    scanning: false, scanned: false,
+    gear: { Ball: true, 'Cones / pins': false, Goal: false, Wall: false, Garden: false, Hallway: false, Rebounder: false },
+    minutes: 15, days: { M: true, T: false, W: true, T2: false, F: true, S: false, S2: false },
+    level: 'Plays at school', skills: { Dribbling: true, Passing: false, Shooting: true, 'First touch': false, Fitness: false, Goalkeeping: false },
+    guide: 'coach', xp: 120, streak: 4, done: 2, weekly: 60,
+    timerSec: 180, running: false, outfit: { boots: '#d67f48', cap: null }, kit: 'home'
+  };
+  GUIDES = [
+    { id: 'coach', name: 'Coach', number: '', kit: '#7a8a5e', shorts: '#3d472b', socks: '#7a8a5e', hair: '#2a1a12', hairStyle: 'crop', beard: false, skin: '#c99671', role: 'Coach', motto: '', tip: { cheer: 'Nice and easy — every pass counts. Show me that weaker foot!', coach: 'Plant your standing foot next to the ball. Inside of the foot, ankle locked.' }, praise: { cheer: 'That was class! Your weaker foot is waking up.', coach: 'Solid. Tomorrow we add one touch before each pass.' } }
+  ];
+  componentWillUnmount() { clearInterval(this.iv); }
+  icon(name, size = 22) {
+    const P = { lock: ['M7 11V7a5 5 0 0 1 10 0v4', 'M5 11h14a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2z'], check: ['M20 6 9 17l-5-5'], play: ['m6 3 14 9-14 9V3z'], star: ['M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z'],
+      ball: ['M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z', 'M12 7l4.5 3.3-1.7 5.4H9.2L7.5 10.3z', 'M12 2v5M7.5 10.3 3 8.8M16.5 10.3 21 8.8M9.2 15.7 6 20M14.8 15.7 18 20'],
+      flag: ['M4 22V4', 'M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1'], award: ['M12 15a7 7 0 1 0 0-14 7 7 0 0 0 0 14z', 'M8.21 13.89 7 23l5-3 5 3-1.21-9.12'], shirt: ['M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z'] };
+    return React.createElement('svg', { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2.75, strokeLinecap: 'round', strokeLinejoin: 'round', style: { display: 'block' } }, P[name].map((d, i) => React.createElement('path', { key: i, d })));
+  }
+  tick = () => this.setState(s => s.timerSec <= 0 ? (clearInterval(this.iv), { running: false, timerSec: 0 }) : { timerSec: s.timerSec - 1 });
+  sel(on) { return on ? { border: 'var(--color-accent-2-600)', bg: 'var(--color-accent-2-200)', color: 'var(--color-accent-2-900)' } : { border: 'var(--color-neutral-300)', bg: '#fff', color: 'var(--color-text)' }; }
+  HAIR = {
+    crop: 'M28 32a22 22 0 0 1 44 0q-8-8-22-6-14-2-22 6z',
+    spiky: 'M28 32a22 22 0 0 1 44 0l-4-14-6 8-6-14-6 14-6-12-4 12-6-6z',
+    bun: 'M28 32a22 22 0 0 1 44 0q-8-6-22-6-14 0-22 6zM40 10a10 8 0 1 1 20 0 10 8 0 1 1-20 0z',
+    quiff: 'M28 32a22 22 0 0 1 44 0q-2-10-12-14-8-16-22-6-8 6-10 20z'
+  };
+  renderVals() {
+    const s = this.state, all = (this.props.view ?? 'prototype') !== 'prototype';
+    const tone = this.props.guideTone ?? 'cheer';
+    const go = n => () => this.setState({ step: n });
+    const guide = this.GUIDES.find(g => g.id === s.guide);
+    const name = s.name.trim();
+    const S = i => all || s.step === i;
+    const gearOn = Object.keys(s.gear).filter(k => s.gear[k]).length;
+    const dayCount = Object.values(s.days).filter(Boolean).length;
+    const doneCount = s.done;
+    const nodeDefs = [
+      { label: 'Toe taps', left: 42, top: 418 }, { label: 'Ball control', left: 152, top: 348 },
+      { label: 'Wall passes', left: 262, top: 268 }, { label: 'Dribble gates', left: 152, top: 188 },
+      { label: 'Target shots', left: 42, top: 108 }, { label: 'Kit chest', left: 162, top: 28 }
+    ];
+    const mm = String(Math.floor(s.timerSec / 60)), ss = String(s.timerSec % 60).padStart(2, '0');
+    return {
+      s0: S(0), s1: S(1), s2: S(2), s3: S(3), s4: S(4), s5: S(5), s6: S(6),
+      name: s.name, nameOrKid: name || 'your player', nameMissing: !name,
+      setName: e => this.setState({ name: e.target.value }),
+      ages: ['8–9', '10–11', '12–13'].map(a => ({ label: a, ...this.sel(s.age === a), onClick: () => this.setState({ age: a }) })),
+      playsNow: [['Garden', 'G'], ['Street / yard', 'Y'], ['Indoors', 'I']].map(([l, i]) => ({ label: l, icon: i, ...this.sel(s.plays === l), onClick: () => this.setState({ plays: l }) })),
+      go0: go(0), go1: go(1), go2: go(2), go3: go(3), go4: go(4),
+      scanning: s.scanning, scanned: s.scanned,
+      scanLabel: s.scanned ? 'Retake photo' : s.scanning ? 'Kicky is looking…' : 'Use camera',
+      scan: () => { this.setState({ scanning: true, scanned: false }); setTimeout(() => this.setState({ scanning: false, scanned: true, gear: { ...s.gear, Ball: true, Wall: true, 'Cones / pins': true, Garden: true } }), 1400); },
+      gearTitle: s.scanned ? `Kicky spotted ${gearOn} things` : 'What gear is around?',
+      gear: Object.keys(s.gear).map(k => ({ label: k, mark: s.gear[k] ? '✓' : '+', ...this.sel(s.gear[k]), onClick: () => this.setState({ gear: { ...s.gear, [k]: !s.gear[k] } }) })),
+      minuteOpts: [10, 15, 20, 30].map(m => ({ label: m, ...this.sel(s.minutes === m), onClick: () => this.setState({ minutes: m }) })),
+      dayOpts: Object.keys(s.days).map(k => ({ label: k[0], ...this.sel(s.days[k]), onClick: () => this.setState({ days: { ...s.days, [k]: !s.days[k] } }) })),
+      weeklySummary: `${dayCount} day${dayCount === 1 ? '' : 's'} × ${s.minutes} min = ${dayCount * s.minutes} min a week`,
+      levelOpts: [['Just starting', 'Kicks about for fun', '★'], ['Plays at school', 'PE lessons, playground games', '★★'], ['Club player', 'Trains with a team already', '★★★']].map(([l, sub, st]) => ({ label: l, sub, stars: st, ...this.sel(s.level === l), onClick: () => this.setState({ level: l }) })),
+      skillOpts: Object.keys(s.skills).map(k => ({ label: k, ...this.sel(s.skills[k]), onClick: () => this.setState({ skills: { ...s.skills, [k]: !s.skills[k] } }) })),
+      guideHair: guide.hair, guideSkin: guide.skin, guideHairPath: this.HAIR[guide.hairStyle],
+      guides: this.GUIDES.map(g => ({ ...g, hairPath: this.HAIR[g.hairStyle], beardPath: g.beard ? 'M36 40q14 18 28 0v8q-14 14-28 0z' : '', selected: g.id === s.guide, border: g.id === s.guide ? 'var(--color-accent)' : 'transparent', scale: g.id === s.guide ? 'scale(1.03)' : 'scale(1)', onClick: () => this.setState({ guide: g.id }) })),
+      guideName: guide.name, guideKit: guide.kit, guideNumber: guide.number, guideTip: guide.tip[tone], praise: guide.praise[tone],
+      xp: s.xp, streak: s.streak, level: Math.floor(s.xp / 100) + 1, minutes: s.minutes, doneCount, unitPct: `${Math.round(doneCount / 6 * 100)}%`,
+      nodes: nodeDefs.map((n, i) => {
+        const done = i < doneCount, cur = i === doneCount, chest = i === 5;
+        return { ...n, current: cur, icon: this.icon(done ? 'check' : chest ? 'star' : cur ? 'play' : 'lock', 26),
+          bg: done ? 'var(--color-accent-2-600)' : cur ? 'var(--color-accent)' : chest ? 'var(--color-accent-400)' : 'var(--color-neutral-100)',
+          color: done || cur ? '#fff' : chest ? '#fff' : 'var(--color-neutral-500)',
+          shadow: done ? 'var(--color-accent-2-800)' : cur ? 'var(--color-accent-700)' : chest ? 'var(--color-accent-600)' : 'var(--color-neutral-400)',
+          anim: cur ? 'ko-pulse 1.6s ease-out infinite' : 'none',
+          onClick: cur ? () => { clearInterval(this.iv); this.setState({ step: 5, timerSec: 180, running: false }); } : () => {} };
+      }),
+      tabs: [['Train', 'ball', 4], ['Challenges', 'flag', 7], ['Badges', 'award', 8], ['Locker', 'shirt', 9]].map(([l, i, st]) => ({ label: l, icon: this.icon(i, 20), bg: s.step === st ? 'var(--color-accent-200)' : 'transparent', color: s.step === st ? 'var(--color-accent-800)' : 'var(--color-neutral-700)', onClick: () => this.setState({ step: st }) })),
+      s7: S(7), s8: S(8), s9: S(9),
+      daysLeft: 3,
+      quests: [
+        { title: 'Streak keeper', sub: 'Train 5 days this week', xp: 50, pct: `${Math.min(s.streak / 5 * 100, 100)}%`, icon: '♨', bg: 'var(--color-accent-200)', fg: 'var(--color-accent-800)', bar: 'var(--color-accent)' },
+        { title: 'Juggle 10', sub: 'Keep the ball up 10 times in a row', xp: 40, pct: '30%', icon: '10', bg: 'var(--color-accent-2-200)', fg: 'var(--color-accent-2-800)', bar: 'var(--color-accent-2-500)' },
+        { title: 'Cone slalom', sub: 'Dribble through 6 cones under 20s', xp: 40, pct: '0%', icon: '▲', bg: 'var(--color-neutral-200)', fg: 'var(--color-neutral-700)', bar: 'var(--color-accent-2-500)' },
+        { title: 'Early bird', sub: 'One drill before school', xp: 20, pct: '100%', icon: '✓', bg: 'var(--color-accent-2-500)', fg: '#fff', bar: 'var(--color-accent-2-500)' }
+      ],
+      questTip: tone === 'cheer' ? `${200 - s.weekly} passes to go — you've totally got this!` : `Split the ${200 - s.weekly} remaining passes over ${Math.max(dayCount, 1)} sessions. Steady beats fast.`,
+      badgeCount: 4 + (doneCount > 2 ? 1 : 0), levelPct: `${s.xp % 100}%`, nextLevel: Math.floor(s.xp / 100) + 2, xpToNext: 100 - (s.xp % 100),
+      badges: [
+        ['First kick', 'Finish your first drill', '1', true], ['Toe tapper', '100 toe taps', '⚽', true], ['Streak 3', '3 days in a row', '3', true], ['Garden hero', 'Complete Unit 1', '★', doneCount >= 6],
+        ['Weak-foot Wizard I', '20 weak-foot passes', 'W', doneCount > 2], ['Sharpshooter', '10 target shots', '◎', false], ['Juggler', 'Keep it up 10×', '10', false], ['Speedster', 'Slalom under 20s', '»', false],
+        ['Early bird', 'Drill before school', '☀', true], ['Streak 7', 'One full week', '7', false], ['Night owl', 'Drill after dinner', '☾', false], ["Kicky's friend", 'Wear a full outfit', '♥', false]
+      ].map(([name, how, icon, on]) => ({ name, how, icon, bg: on ? 'var(--color-accent-2-500)' : 'var(--color-neutral-200)', ring: on ? 'rgba(255,255,255,.6)' : 'var(--color-neutral-400)', fg: on ? '#fff' : 'var(--color-neutral-500)', shadow: on ? '0 5px 0 var(--color-accent-2-700)' : 'none', opacity: on ? 1 : .85, text: on ? 'var(--color-text)' : 'var(--color-neutral-600)' })),
+      bootColor: s.outfit.boots, capOn: s.outfit.cap !== null, capColor: s.outfit.cap ?? 'transparent',
+      outfits: [
+        ['Orange boots', 'boots', '#d67f48', true], ['Sage boots', 'boots', '#7a8a5e', s.xp >= 100], ['Terracotta cap', 'cap', '#c67139', s.xp >= 150], ['Night cap', 'cap', '#2e2b25', false]
+      ].map(([label, slot, color, unlocked]) => {
+        const on = s.outfit[slot] === color;
+        return { label: unlocked ? label : `${label} · locked`, swatch: color, ...this.sel(on), opacity: unlocked ? 1 : .5, onClick: () => unlocked && this.setState({ outfit: { ...s.outfit, [slot]: slot === 'cap' && on ? null : color } }) };
+      }),
+      kits: [
+        ['Home kit', 'The classic sage', '#7a8a5e', true, 'home'], ['Away kit', `${Math.max(5 - doneCount, 0)} drills to go`, '#c67139', doneCount >= 5, 'away'], ['Legend kit', 'Reach level 5', '#2e2b25', s.xp >= 400, 'legend']
+      ].map(([name, sub, color, unlocked, id]) => ({ name, sub, color, opacity: unlocked ? 1 : .45, border: s.kit === id ? 'var(--color-accent)' : 'transparent', tag: unlocked ? (s.kit === id ? 'tag-accent' : 'tag-accent-2') : 'tag-neutral', status: unlocked ? (s.kit === id ? 'Wearing' : 'Owned') : 'Locked', onClick: () => unlocked && this.setState({ kit: id }) })),
+      step2Bg: s.timerSec < 180 ? 'var(--color-accent)' : 'var(--color-neutral-300)', step3Bg: s.timerSec === 0 ? 'var(--color-accent)' : 'var(--color-neutral-300)',
+      timeLabel: `${mm}:${ss}`, timerHint: s.running ? 'tap to pause' : s.timerSec === 0 ? 'time!' : 'tap to start',
+      dashOffset: 527.8 * (1 - s.timerSec / 180),
+      toggleTimer: () => { if (s.running) { clearInterval(this.iv); this.setState({ running: false }); } else if (s.timerSec > 0) { this.iv = setInterval(this.tick, 1000); this.setState({ running: true }); } },
+      drillSteps: [{ n: 1, text: 'Stand 3 big steps from the wall' }, { n: 2, text: 'Pass with the inside of your weaker foot' }, { n: 3, text: 'Control the rebound, then pass again — 20 times' }],
+      finishDrill: () => { clearInterval(this.iv); this.setState(st => ({ step: 6, running: false, xp: st.xp + 30, streak: st.streak + 1, done: Math.min(st.done + 1, 6), weekly: Math.min(st.weekly + 20, 200) })); },
+      kitLeft: Math.max(5 - doneCount, 0), kitPct: `${Math.min(doneCount / 5 * 100, 100)}%`,
+      weeklyDone: s.weekly, weeklyPct: `${Math.round(s.weekly / 200 * 100)}%`
+    };
+  }
+}
+</script>
+</body>
+</html>

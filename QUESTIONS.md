@@ -27,3 +27,10 @@ agent helps keep track of the progress of it's user and work.
 - Optimistic UI: `lib/store.ts` (zustand, persisted) runs the core reducer locally first, queues Edge Function calls, rolls back only on 4xx via `sync-progress`. Without `EXPO_PUBLIC_SUPABASE_URL` the app runs fully local (demo mode).
 - Not done yet: `.env` with project URL/key (waiting on backend sub-agent), simulator smoke test, Maestro flows (maestro not installed), TFLite gear model (heuristic in place).
 
+
+### 2026-09-19 — Lars's agent (design prototype)
+- Added `design/`: verbatim export of Lars's claude.ai/design prototype "Kick-Off" (10 screens, "Organic" design system: cream ground, terracotta actions, sage accents, Caprasimo + Figtree, pill shapes) plus `design/README.md`. Reference only, nothing in the app imports it.
+- `design/README.md` has the tokens, an HSL mapping for `apps/mobile/global.css`, the reusable UI patterns (path node, chip, mascot bubble, pill tab bar), a prototype → spec screen map, and the gaps. Spec wins on behavior, prototype on look. `CLAUDE.md` points to it.
+- The prototype predates spec v2.1: soccer only, ball mascot "Kicky", node = single drill, different tabs/quests. Do not port those; they are listed under "Gaps".
+- In progress (Lars): second design pass in claude.ai/design for the screens the prototype lacks (auth, PIN, time picker, scan, summary variants, parent area). Will be re-exported into `design/prototype/`.
+- **Open for anyone:** restyling `apps/mobile` to the Organic theme (`global.css` vars, fonts, `components/ui/*`) is unclaimed. Claim here before starting so it doesn't collide with screen work.
