@@ -1,0 +1,75 @@
+# Runs against Expo Go on the iOS simulator with `expo start` on :8081.
+appId: host.exp.Exponent
+---
+- launchApp:
+    clearState: true
+- openLink: exp://127.0.0.1:8081
+- extendedWaitUntil:
+    visible: "I'm a parent — get started"
+    timeout: 60000
+- tapOn: "I'm a parent — get started"
+- tapOn:
+    id: email
+- inputText: "demo@example.com"
+- tapOn:
+    id: password
+- inputText: "password123"
+- hideKeyboard
+- tapOn:
+    id: submit
+# Parent onboarding
+- tapOn:
+    id: first-name
+- inputText: "Tristan"
+- hideKeyboard
+- tapOn: "Next"
+- tapOn: "I am the parent or guardian.*"
+- tapOn: "Next"
+- tapOn:
+    id: nickname
+- inputText: "Ava"
+- hideKeyboard
+- tapOn: "Next"
+- tapOn: "⚽ Soccer"
+- tapOn: "Forward"
+- scrollUntilVisible:
+    element: "Next"
+    direction: DOWN
+- tapOn: "Next"
+- tapOn: "Next"
+- tapOn: "Next"
+- tapOn:
+    id: pin
+- inputText: "1234"
+- hideKeyboard
+- tapOn: "Save child"
+- tapOn: "Continue"
+- assertVisible: "All set"
+- tapOn: "Hand to Ava"
+# Kid onboarding
+- tapOn: "Hi Coach!"
+- tapOn: "Next"
+- tapOn: "Next"
+- tapOn: "Shooting"
+- tapOn: "Next"
+- tapOn: "Next"
+- tapOn: "Regular"
+- tapOn: "Let's go!"
+# Path → first level
+- assertVisible: "Unit 1: Shooting"
+- tapOn:
+    id: "node-soccer-0:0"
+- tapOn:
+    id: start
+- repeat:
+    while:
+      visible:
+        id: did-it
+    commands:
+      - tapOn:
+          id: did-it
+- assertVisible: "XP"
+- assertVisible: "First Whistle"
+- tapOn:
+    id: back-to-path
+- assertVisible: "Unit 1: Shooting"

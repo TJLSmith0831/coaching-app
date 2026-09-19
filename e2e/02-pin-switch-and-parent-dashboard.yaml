@@ -1,0 +1,30 @@
+appId: host.exp.Exponent
+---
+- launchApp
+- openLink: exp://127.0.0.1:8081
+- extendedWaitUntil:
+    visible: "Unit 1.*"
+    timeout: 60000
+- tapOn: "Me"
+- scrollUntilVisible:
+    element: "Switch player"
+    direction: DOWN
+- tapOn: "Switch player"
+- tapOn: "Parent"
+- assertVisible: "Hi Tristan"
+- tapOn: "👏 Cheer"
+- tapOn: "Rewards"
+- tapOn: "Pick Friday dinner"
+- tapOn: "Add reward"
+- assertVisible: "🎁 Pick Friday dinner"
+- tapOn: "Switch player"
+- tapOn: "Play as Ava"
+- tapOn:
+    id: key-1
+- tapOn:
+    id: key-2
+- tapOn:
+    id: key-3
+- tapOn:
+    id: key-4
+- assertVisible: "Unit 1.*"
