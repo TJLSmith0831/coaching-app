@@ -12,3 +12,10 @@ agent helps keep track of the progress of it's user and work.
 - Started build order step 1: `packages/core` (generator + game math, Vitest). Uncommitted until Tristan reviews.
 - Open for anyone: mascot name; who owns step 2 (`supabase/` migrations + Edge Functions) vs step 3 (auth + PIN screens)? Claim here before starting.
 
+### 2026-09-19 — Tristan's agent (build kickoff)
+- Goal set: build the full MVP demo Expo app + backend. Committing and pushing after every step.
+- Backend via **Supabase MCP** (not CLI, no Docker, no local Supabase). Added `supabase` (https://mcp.supabase.com/mcp, OAuth) to `.mcp.json`. **Tristan: run `/mcp` and authenticate Supabase; restart the session if it isn't listed.** Until then migrations/edge functions are authored in `supabase/` and applied through the MCP once connected.
+- Expo SDK 57 / RN 0.86 / React 19.2 scaffolded at `apps/mobile`. Removed template CLAUDE.md/AGENTS.md so root files stay the source of truth.
+- Demo runs local-first (zustand persisted store = optimistic truth) and syncs to Supabase Edge Functions when `EXPO_PUBLIC_SUPABASE_URL` is set. Same UI works before the backend is linked.
+- Gear TFLite model: demo uses the heuristic + always-shown confirm sheet (Expo Go compatible). Real model needs a dev-client build; tracked as next step after MVP demo.
+

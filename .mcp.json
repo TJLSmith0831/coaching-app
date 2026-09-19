@@ -6,6 +6,10 @@
         "--graph",
         "/Users/tjlsmith0831/dev/coaching-app/graphify-out/graph.json"
       ]
+    },
+    "supabase": {
+      "type": "http",
+      "url": "https://mcp.supabase.com/mcp"
     }
   }
 }
