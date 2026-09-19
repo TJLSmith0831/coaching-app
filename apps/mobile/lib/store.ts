@@ -162,7 +162,7 @@ export const useApp = create<State>()(
           const key = `${childId}:${today}:${kind}`;
           if (get().checkins[key]) return;
           set((s) => ({ checkins: { ...s.checkins, [key]: true } }));
-          patchChild(childId, (c) => ({ ...c, progress: parentCheckin(c.progress, today) }));
+          patchChild(childId, (c) => ({ ...c, progress: parentCheckin(c.progress, today, seed) }));
           get().enqueue("parent-checkin", { child_id: childId, kind, today }, childId);
         },
 

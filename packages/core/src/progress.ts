@@ -93,7 +93,7 @@ export function ensureQuests(p: ChildProgress, today: string, seed: SeedBundle):
   return out.length === p.quests.length && out.every((q, i) => q === p.quests[i]) ? p : { ...p, quests: out };
 }
 
-export function parentCheckin(p: ChildProgress, today: string): ChildProgress {
+export function parentCheckin(p: ChildProgress, today: string, seed?: SeedBundle): ChildProgress {
   let newlyDone = false;
   const quests = p.quests.map((q) => {
     if (q.kind !== "family" || q.completedAt || q.lastParentCheckin === today) return q;
@@ -108,7 +108,7 @@ export function parentCheckin(p: ChildProgress, today: string): ChildProgress {
     next = addXp(next, reward, today);
     next = { ...next, counters: { ...next.counters, familyQuests: next.counters.familyQuests + 1 } };
   }
-  return evalBadges(next).p;
+  return evalBadges(next, seed).p;
 }
 
 // ---- badges ----
