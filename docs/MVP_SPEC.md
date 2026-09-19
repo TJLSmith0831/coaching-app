@@ -2,9 +2,10 @@
 
 Ages 8–13 (kids) + parents who set everything up.
 Stack: React Native + Expo (TypeScript), shadcn for RN (`react-native-reusables` + NativeWind), Supabase.
-Status: DRAFT v2 for approval. **[ASSUMPTION]** = needs yes/no. **[DEFAULT]** = built unless told otherwise. **[P1]** = after MVP.
+Status: v2.1 APPROVED 2026-09-19 (decisions in section I). **[ASSUMPTION]** = needs yes/no. **[DEFAULT]** = built unless told otherwise. **[P1]** = after MVP.
 
 Changes from v1: "Dual-Link" replaced by Duolingo-style path gamification; scanner gains a Gear mode; time-budgeted practice plan generator added; mascot slot reserved; shadcn confirmed.
+v2.1: decisions applied (one path per sport personalized by position + improvement goals, surprise chests, Baseball, 4 MB gear model, dachshund mascot), optimistic UI, single-language TypeScript stack.
 
 ---
 
@@ -13,12 +14,14 @@ Changes from v1: "Dual-Link" replaced by Duolingo-style path gamification; scann
 - Parent creates an account, adds kids, picks sports/positions/level in under 5 minutes. Kid logs in with a 4-digit PIN on the shared device.
 - Five sports: Soccer, Basketball, American Football (flag), Tennis, Baseball/Softball. Age bands 8–10 and 11–13.
 - Scanner has two modes. **Spot**: point at the yard/driveway/park → surface, space, fixtures. **Gear**: point at the equipment pile → balls, racket, glove, cones, hoop. Both run on-device, both prefill chips the kid confirms. Photos stay on the phone unless the parent opts in.
-- Kid or parent enters time available ("I have 10 minutes") and weekly availability. The **Plan Generator** turns sport + position + age + gear + spot + time + history into a **Path**: Units → Levels → Sessions, filled just-in-time so a level always fits today's time and gear.
+- Kid or parent enters time available ("I have 10 minutes") and weekly availability. The **Plan Generator** builds **one Path per sport**, personalized by position and the kid's chosen **improvement goals** ("get better at shooting"): Units → Levels → Sessions, filled just-in-time so a level always fits today's time and gear.
 - Duolingo-style gamification: a scrolling Path with locked/unlocked/crowned level nodes, XP, daily goal, streak + weekly freeze, daily quests, badges, treasure chests on the path, and a weekly **Family Quest** shared with the parent. No hearts, no public leagues.
-- Mascot: a named character slot appears in empty states, session summaries, streak nudges, and the path header. Art and name land later; MVP ships a placeholder asset + copy strings.
+- Mascot: a **dachshund** coach (name TBD, placeholder "Coach") appears in empty states, session summaries, streak nudges, and the path header. Final art lands later; MVP ships placeholder poses + copy strings written in-voice.
+- Optimistic UI everywhere: every kid/parent action renders its result instantly from a local reducer, syncs in the background, and rolls back only on a hard server rejection.
+- Single-language stack: TypeScript end to end. Game math lives in `packages/core` and runs in Supabase Edge Functions (Deno/TS). SQL is limited to migrations + RLS policies.
 - Parent dashboard: per-child path progress, streak health, session log, weekly availability, rewards approval.
 - Supabase: parent-only Auth, children as rows with bcrypt PIN, RLS everywhere, all XP/progress writes through SECURITY DEFINER RPCs.
-- TDD: Vitest for the generator and game math first, pgTAP for RLS/RPCs, RN Testing Library per screen state, Maestro for 5 critical flows. CI blocks on red.
+- TDD: Vitest for the generator and game math first, Vitest integration tests for RLS + Edge Functions, RN Testing Library per screen state, Maestro for 5 critical flows. CI blocks on red.
 - Beta success: median time to first kid session ≤ 8 min; 40% of kids reach a 3-day streak in week 1; 70% of scans accepted without correction.
 
 ---
@@ -45,7 +48,7 @@ US youth ages 6–12: Soccer #1, Basketball #2, Football #3 (flag > tackle), the
 | Basketball | #3 globally, #2 US youth. Requested. |
 | American Football (flag) | Requested. Flag only: safety + solo-practice friendly. |
 | Tennis | Requested. Top-6 globally, best solo wall practice. |
-| Baseball/Softball | **[DEFAULT]** Replaces Cricket/Field Hockey for a US launch. Swap to Cricket for IN/UK/AUS. Seed-file change only. |
+| Baseball/Softball | **Approved.** Replaces Cricket/Field Hockey for a US launch. Swap to Cricket for IN/UK/AUS is a seed-file change. |
 
 ### 1.3 Skill tracks, positions, drills (ages 8–13)
 
@@ -100,7 +103,7 @@ Root
 │   ├── Rewards     create / approve
 │   └── Settings
 └── Kid tabs (locked to child_id)
-    ├── Path        scrolling unit/level nodes, mascot header, daily goal ring, streak
+    ├── Path        sport tab strip → scrolling unit/level nodes, mascot header, daily goal ring, streak
     ├── Practice    time picker → Session Player → Summary
     ├── Scan        Spot | Gear segmented control
     ├── Quests      daily quests, weekly Family Quest, chests
@@ -121,7 +124,7 @@ Root
 
 | Screen | Purpose | States |
 |---|---|---|
-| Path | Vertical path of nodes per unit. Node states: locked / current (pulsing) / done 1–3 stars / chest. Tap current → time picker. Mascot at top with today's line. | no path yet, all units done ("New unit unlocking…"), streak at risk |
+| Path | Sport tabs at top (one path per enabled sport). Vertical nodes per unit: locked / current (pulsing) / done 1–3 stars / chest. Tap current → time picker. Mascot at top with today's line. | no path yet, all units done ("New unit unlocking…"), streak at risk |
 | Time picker | "How long do you have?" 5 / 10 / 15 / 20 min chips + "Where are you?" spot chips + "Got your gear?" checklist prefilled | gear missing → generator swaps drills, shows "No ball? Try these" |
 | Session Player | Drill card (image/video, 2-line text, read-aloud) → timer → Did it! / Skip / Too hard / Too easy → next | paused, media failed (text+image), offline |
 | Summary | XP tick-up → daily goal ring → streak +1 → stars for level → chest if any → mascot line | level-up modal, badge modal, Family Quest progress |
@@ -170,10 +173,11 @@ Ongoing: open app → last profile. Sunday 6pm digest **[DEFAULT, local notifica
  → [Meet <Mascot>: 1 screen, placeholder art, "I'm your coach buddy. Let's find your first level!"]
  → [Avatar: 3 taps]
  → [Confirm sports order + position cards ("Try them all" for 8–10)]
+ → [Per sport: "What do you want to get better at?" pick 1–2 skill tracks as big cards → improvement goals]
  → [Where do you usually practice? Backyard / Driveway / Park / Indoors]
  → [Gear check: parent's list shown as checkboxes; "Scan my gear" button]
  → [Daily goal: Casual 20 XP / Regular 40 XP / Serious 60 XP  (parent can override)]
- → [Path: Unit 1, node 1 pulsing] → tap → [Time: 10 min preselected] → [Session Player]
+ → [Path (focus sport): Unit 1, node 1 pulsing] → tap → [Time: 10 min preselected] → [Session Player]
  → [Summary: +XP, goal ring fills, streak 1, ⭐⭐, badge "First Whistle", mascot cheers]
  → [Path: node 2 unlocked]
 recurring:
@@ -212,10 +216,12 @@ Scanner outputs: `spots` row (tags, optional photo) and `child_equipment` rows. 
 inputs: child (age band, difficulty cap), child_sports (focus, positions, level),
         child_equipment, spots, availability, level_progress history, drill feedback (too hard/easy)
  step 1  PATH SKELETON (on onboarding / regenerate; stored)
-   for focus sport: units = skill tracks ordered by position weight; each unit = 5 levels
-   level k in unit: target_difficulty = clamp(level_base + k*0.5, 1, cap); skill_track = unit.track
-   every 3rd node = chest; unit end = "Unit Review" level (mix of all tracks so far)
-   secondary sports: 1 unit each appended after focus Unit 2 (interleaved) [DEFAULT]
+   ONE PATH PER SPORT the child has enabled; kid switches sport via a tab strip on the Path screen
+   unit order = skill tracks sorted by score = Σ position.track_weights[track] * 2 + (track in improvement_goals ? 5 : 0)
+              ties → seed sort; every track appears at least once per path
+   goal tracks get 7 levels, others 5; level k: target_difficulty = clamp(base(level) + k*0.5, 1, cap)
+   every 3rd node = chest (surprise contents, rolled server-side at completion); unit end = "Unit Review" (mix of tracks so far)
+   personalization hash = (positions, goals, level, cap) → stored on path; change → regenerate locked levels only
  step 2  SESSION FILL (just-in-time when kid taps a node; not stored until start)
    candidates = drills where sport, track, age fits, |difficulty - target| ≤ 1,
                 equipment_required ⊆ child_equipment, min_space ≤ spot.space,
@@ -243,6 +249,7 @@ Parent → Settings tab. Kid → Me → gear. Parent-only rows show a padlock in
 | Account, delete account | ✔ | – | Settings › Account |
 | Child nickname, birth month/year, avatar | ✔ | avatar only | ChildDetail / Me |
 | Sports, positions, level, focus | ✔ | reorder + position within enabled sports | ChildDetail / Me › Sports |
+| Improvement goals (1–2 tracks per sport) | ✔ | ✔ | ChildDetail / Me › Sports |
 | Gear list | ✔ + scan | ✔ + scan | ChildDetail / Scan › Gear |
 | Weekly availability, reminder time | ✔ | view | Plan |
 | Daily XP goal | ✔ override | ✔ pick | ChildDetail / Me |
@@ -281,15 +288,17 @@ badges              id text pk, name, description, icon, rule jsonb
 quest_templates     id text pk, kind ('daily'|'family'), title, rule jsonb, xp_reward
 
 -- per child
-child_sports        (child_id, sport_id) pk, level text, position_ids text[], is_focus bool
+child_sports        (child_id, sport_id) pk, level text, position_ids text[], goal_track_ids text[], is_focus bool
 child_equipment     (child_id, equipment_type_id) pk, source text ('manual'|'scan'), confidence null
 spots               id, child_id, label, surface, space, fixtures text[], confidence, photo_path null, lat/lng null, is_favorite
 availability        child_id pk, minutes_by_dow int[7], reminder_time time
 
-paths               id, child_id, generated_at, generator_version int, active bool
-path_units          id, path_id, sport_id, skill_track_id, sort, title
+paths               id, child_id, sport_id, generated_at, generator_version int, personalization_hash text, active bool
+                    unique (child_id, sport_id) where active
+path_units          id, path_id, skill_track_id, sort, title, is_goal bool
 path_levels         id, unit_id, sort, kind ('level'|'chest'|'review'), target_difficulty numeric,
-                    status ('locked'|'current'|'done'), stars int null, completed_at null
+                    status ('locked'|'current'|'done'), stars int null, completed_at null,
+                    chest_contents jsonb null   -- rolled server-side on open, never pre-revealed
 
 sessions            id, child_id, level_id null, sport_id, spot_id null, time_budget_sec,
                     started_at, completed_at null, planned_drill_ids text[], xp_earned int, source ('path'|'free')
@@ -321,21 +330,33 @@ Seed tables: `select` for `authenticated`, no writes.
 - RPC `verify_child_pin(child_id, pin)` → bcrypt compare, 5 attempts/min via `pin_attempts` + timestamp, returns ok. Client sets `activeChildId` (Zustand).
 - Kid's own device via link code = [P1].
 
-### E.2 RPCs (SECURITY DEFINER, all game math server-side)
-- `generate_path(child_id)` → runs the same generator (ported skeleton step only, or called from an Edge Function running the shared TS package **[DEFAULT: Edge Function importing packages/core]**) → writes `paths/path_units/path_levels`. Preserves done/current levels.
-- `start_session(child_id, level_id, time_budget_sec, spot_id)` → session fill runs **client-side** from cached seed data (instant, offline-safe), client posts `planned_drill_ids`; server validates each drill against equipment/age/cap and rejects mismatches.
-- `complete_session(session_id, drill_results)` → session_drills, xp_ledger, stars on level, unlock next level, streak, daily_progress, quest progress, badge eval, chest award. Idempotent on session_id. Returns summary payload.
-- `parent_checkin(child_id, kind)` → Family Quest parent_progress; kinds: `viewed`, `cheered`, `approved`.
-- `claim_reward`, `resolve_claim`, `record_scan(child_id, mode, tags)`, `set_equipment(child_id, ids[], source)`.
+### E.2 Server logic — TypeScript Edge Functions (single-language stack)
+All game math lives in `packages/core` and is executed by Supabase Edge Functions (Deno, TS) using the service role after verifying the parent JWT + child ownership. No plpgsql business logic; SQL is migrations + RLS + a few CHECK constraints.
+
+| Function | Does |
+|---|---|
+| `generate-path` (child_id, sport_id) | runs `core.buildSkeleton`, upserts paths/units/levels, preserves done/current |
+| `start-session` (child_id, level_id, time_budget_sec, spot_id, planned_drill_ids) | client already ran `core.fillSession` from cached seed; server re-validates each drill against equipment/age/cap, rejects mismatches |
+| `complete-session` (session_id, drill_results) | `core.scoreStars`, `core.applyXp`, `core.advanceStreak`, `core.evalQuests`, `core.evalBadges`, `core.rollChest`; writes ledger/progress; idempotent on session_id; returns summary payload |
+| `parent-checkin` (child_id, kind) | Family Quest parent side |
+| `claim-reward`, `resolve-claim`, `record-scan`, `set-equipment`, `verify-child-pin` | thin writes; PIN compare with bcrypt in TS, 5/min |
+
+Same `packages/core` code runs on device for optimistic previews and on the server for truth, so client and server never disagree on rules.
 
 ### E.3 Reads
 - Supabase JS + TanStack Query; seed tables cached in MMKV for 7 days; path + progress query per child.
 - Offline: `complete_session` queued in MMKV, replayed on reconnect; streak date = device-local date at completion.
 
+### E.3.1 Optimistic UI [approved]
+- Every mutation has a local reducer in `packages/core` that produces the expected next state (XP, stars, streak, quest progress, node unlock). The screen renders that immediately; the Edge Function call runs in the background.
+- TanStack Query `onMutate` writes the optimistic state to the cache and MMKV; `onError` with a **hard rejection** (4xx validation, ownership) rolls back and shows a one-line mascot message. Network errors do **not** roll back: the mutation stays queued and retries with backoff.
+- Server response reconciles: chest contents (rolled server-side) and any badge the client didn't predict are applied on arrival with their own animation, so surprises still feel like surprises.
+- Idempotency keys (client-generated `session_id`) make retries safe.
+
 ### E.4 Camera / scanner
 - `expo-camera` preview + capture; `useCameraPermissions()`.
 - **Spot** interpretation **[DEFAULT]**: on-device color-cluster + edge-density heuristic (224px). `// ponytail: heuristic; swap to TFLite via react-native-fast-tflite when field accuracy <70%`.
-- **Gear** interpretation **[DEFAULT]**: on-device MobileNet-class image classifier (TFLite, ~4 MB, bundled) mapped to `equipment_types` with confidence; heuristic fallback (orange sphere = basketball, yellow-green small sphere = tennis ball) if the model fails to load. The confirm sheet is always shown, so detection quality only affects taps saved, never correctness.
+- **Gear** interpretation **[approved]**: on-device MobileNet-class image classifier (TFLite, ~4 MB, bundled) mapped to `equipment_types` with confidence; heuristic fallback (orange sphere = basketball, yellow-green small sphere = tennis ball) if the model fails to load. The confirm sheet is always shown, so detection quality only affects taps saved, never correctness.
 - No raw image leaves device. Photos saved to Storage only with parent opt-in.
 
 ### E.5 Storage
@@ -357,26 +378,27 @@ Open → Path shows one pulsing node → pick time → 5–20 min session → su
 
 | Object | Rule |
 |---|---|
-| Path | Per child. Units = skill tracks. 5 nodes per unit + chest every 3rd + Unit Review at end. Only the current node is tappable; done nodes replayable for half XP. |
+| Path | One per child per sport. Units = skill tracks ordered by position + improvement goals; goal units have 7 nodes, others 5; chest every 3rd; Unit Review at end. Only the current node is tappable; done nodes replayable for half XP. |
 | Stars | 1–3 per level (B.4 step 3). Unit shows total stars; 3-star all nodes = "Gold Unit" badge. |
 | XP | drill.xp 5–15 each; session complete +10; 3 stars +15; chest 20–50; quests 10–50. Replay = half. |
 | Daily goal | Casual 20 / Regular 40 / Serious 60 XP. Goal ring on Path header. Meeting goal = streak day. |
 | Streak | +1 per local day goal met. 1 freeze/week auto-applies. Breaks after 2 misses. Longest stored. Milestones 3/7/14/30 → badge + chest. |
 | Daily quests | 3/day from templates: "Earn 30 XP", "Finish 1 level", "Do a drill both-footed", "Scan a spot". Reset at local midnight. |
-| Family Quest | Weekly, shared. Kid side: "Complete 3 levels". Parent side: "Check in 3 days" (view dashboard, cheer, or approve). Both sides done = chest for kid + badge tier. Replaces v1 Link Meter. |
-| Chests | Path nodes and quest rewards. Contain XP + occasional avatar cosmetic. No randomness that feels like gambling: contents shown before opening **[DEFAULT]**. |
+| Family Quest | Weekly, shared **[approved]**. Kid side: "Complete 3 levels". Parent side: "Check in 3 days" (view dashboard, cheer, or approve). Both sides done = chest for kid + badge tier. |
+| Chests | Path nodes and quest rewards. **Surprise reveal [approved]**: contents rolled server-side on open from a fixed table (XP 20/35/50 at 60/30/10%, plus 1 cosmetic per unit guaranteed). Kid taps to open, mascot reacts. No paid currency, no duplicates-as-filler. |
 | Badges (MVP 14) | First Whistle, Hat Trick (3 levels), Week Warrior (7), Month Strong (30), Gold Unit, Explorer (3 spots), Gear Head (gear scan), Both Feet, Sharpshooter, Route Runner, Wall Rally 20, Glove Work, Family ×1 / ×5 |
 | Rewards | Parent-defined real-world rewards, XP cost or milestone, kid claims → parent approves. XP not deducted until approval. |
 | Levels (player) | `player_level = floor(sqrt(total_xp/50))`. Shown on Me. Cosmetic only. |
 | Leagues | **Not in MVP.** [P1] private Family League (siblings only). No public leaderboards for minors. |
 | Hearts | Not used. Practice has no wrong answers; punishment mechanics conflict with the 8–13 goal. |
 
-### F.3 Mascot [slot, art later]
+### F.3 Mascot — dachshund coach [approved species, art later]
 
-- `Mascot` component with `pose` prop: `idle | cheer | think | sleep | nudge`. MVP renders a placeholder SVG per pose.
-- Copy strings keyed per moment in `packages/core/mascot-lines.ts`: onboarding hello, analyzing, summary praise (3 variants), streak-at-risk nudge, unit complete, empty path.
-- Appears: Path header, scan analyzing, summary, quests empty state, parent dashboard tip card. Name = **[ASSUMPTION: TBD; "Coach" placeholder]**.
-- Design constraint: no mascot guilt-tripping copy (Duolingo-owl memes). Nudges are encouraging, max 1/day.
+- Species: **dachshund**. Name: placeholder "Coach" **[ASSUMPTION: name TBD]**. Personality: short legs, big whistle, tries every drill first and is bad at jumping. Copy leans on that.
+- `Mascot` component, `pose: idle | cheer | think | sleep | nudge | stretch`. MVP renders placeholder SVGs per pose sized for the header (96pt) and inline (48pt).
+- Copy in `packages/core/mascot-lines.ts`, keyed per moment, 3 variants each, written in-voice: onboarding hello, analyzing, summary praise, streak-at-risk nudge, chest open, unit complete, empty path, hard-rejection error.
+- Appears: Path header, scan analyzing, summary, chest open, quests empty state, parent dashboard tip card.
+- Constraint: encouraging only, max 1 nudge/day, no guilt copy.
 
 ### F.4 Where gamification touches each loop
 
@@ -393,12 +415,12 @@ Must ship:
 1. Parent signup (email + Apple), onboarding incl. gear + availability, resumable, path generated at end.
 2. Kid PIN login, kid onboarding, mascot placeholder, daily goal pick, first level in <10 min.
 3. 5 sports seeded: tracks, positions, ≥8 drills per sport, ≥1 shadow drill per track, ≥40 media items.
-4. Generator: skeleton + JIT fill + star scoring + difficulty adaptation + regenerate-preserves-progress, all unit-tested.
+4. Generator: per-sport skeleton personalized by position + goals, JIT fill, star scoring, difficulty adaptation, regenerate-preserves-progress, all unit-tested.
 5. Scanner Spot + Gear modes, permission states, confirm sheet, fallback, saves feed generator.
-6. Path UI with node states, chests, unit review; Session Player; Summary with XP/goal/streak/stars.
+6. Path UI with sport tabs, node states, surprise chests, unit review; Session Player; Summary with XP/goal/streak/stars. All mutations optimistic with rollback on hard rejection.
 7. Streaks + freeze, daily quests, Family Quest, 14 badges, rewards create/claim/approve.
 8. Parent Dashboard, Plan (availability + regenerate), ChildDetail, Settings per C.
-9. RLS proven by pgTAP; RPC validation rejects drills the child can't do.
+9. RLS proven by TS integration tests against local Supabase; Edge Function validation rejects drills the child can't do.
 10. Offline session completion; privacy: opt-in photo storage, export, child delete.
 
 Beta metrics (20–30 families, 4 weeks):
@@ -417,15 +439,15 @@ Every task starts with a failing test. CI blocks merge on red.
 
 | Layer | Tool | Coverage | Location |
 |---|---|---|---|
-| Domain (pure TS) | Vitest | Generator skeleton (unit order by position weights, chest placement, cap), JIT fill (equipment/space/wall filters, never-empty guarantee, time packing, recency, feedback adaptation), star scoring, XP/level math, streak incl. freeze + tz midnight, quest evaluation, badge rules, Zod settings schemas, scanner heuristics on 30 fixture images, gear classifier label mapping | `packages/core/**/*.test.ts` |
-| DB | pgTAP (`supabase test db`) | RLS cross-parent denial on every child table; `complete_session` idempotency; `start_session` rejects invalid drills; `verify_child_pin` rate limit; `generate_path` preserves done levels; ledger sum = total XP | `supabase/tests/*.sql` |
+| Domain (pure TS) | Vitest | Generator skeleton (per-sport, unit order by position weights + goals, goal units 7 nodes, every track present, chest placement, cap), optimistic reducers equal server results for same inputs, JIT fill (equipment/space/wall filters, never-empty guarantee, time packing, recency, feedback adaptation), star scoring, XP/level math, streak incl. freeze + tz midnight, quest evaluation, badge rules, Zod settings schemas, scanner heuristics on 30 fixture images, gear classifier label mapping | `packages/core/**/*.test.ts` |
+| DB + Edge Functions | Vitest integration against `supabase start` (two parent JWTs) | RLS cross-parent denial on every child table; `complete-session` idempotency; `start-session` rejects invalid drills; `verify-child-pin` rate limit; `generate-path` preserves done levels; ledger sum = total XP; chest roll distribution | `supabase/tests/*.test.ts` |
 | Screens | Jest + RN Testing Library | Every state in A.3/A.4; tap targets ≥56pt on kid screens; a11y labels; mascot pose per moment | `apps/mobile/src/**/*.test.tsx` |
 | E2E | Maestro | (1) parent onboarding → path preview, (2) kid PIN → first level → summary → node 2, (3) gear scan (mock camera) → confirm → path regenerates, (4) spot scan → start level here, (5) reward claim → parent approve → Family Quest | `e2e/*.yaml` |
-| Contracts | `supabase gen types` checked in; CI fails on drift | `packages/db/types.ts` |
+| Contracts | `supabase gen types` checked in; CI fails on drift; Edge Function payloads typed with Zod schemas shared from `packages/core` | `packages/db/types.ts` |
 
 Build order (red → green → refactor each):
 1. `packages/core`: generator + game math + tests. Zero RN imports.
-2. `supabase`: migrations, seed (5 sports), RPCs, Edge Function wrapping generator, pgTAP.
+2. `supabase`: migrations + RLS, seed (5 sports), Edge Functions (TS) wrapping `packages/core`, integration tests.
 3. Auth, Who's Playing, PIN.
 4. Parent onboarding (incl. Gear chips + Availability) → path preview.
 5. Kid onboarding → Path → time picker → Session Player → Summary.
@@ -437,7 +459,7 @@ Build order (red → green → refactor each):
 Repo (pnpm monorepo):
 ```
 apps/mobile      Expo app (expo-router)
-packages/core    generator, game math, mascot lines — pure TS
+packages/core    generator, game math, optimistic reducers, mascot lines — pure TS, runs on device and in Deno
 packages/db      generated types + typed RPC wrappers
 supabase/        migrations, seed, functions, tests
 e2e/             Maestro
@@ -447,15 +469,17 @@ Dependencies (fixed list): expo, expo-router, expo-camera, expo-secure-store, ex
 
 ---
 
-## I. Open questions for approval
+## I. Decisions (approved 2026-09-19)
 
-Defaults in brackets; development starts on them.
+| # | Question | Decision |
+|---|---|---|
+| 1 | Fifth sport | Baseball/Softball |
+| 2 | Path structure | One path per sport, personalized by position + kid-chosen improvement goals |
+| 3 | Chests | Surprise reveal, rolled server-side |
+| 4 | Family Quest parent side | 3 check-ins/week (default kept) |
+| 5 | Gear classifier | Bundled ~4 MB TFLite model |
+| 6 | Mascot | Dachshund; name TBD |
+| + | UI | Optimistic everywhere, rollback only on hard rejection |
+| + | Stack | TypeScript only: RN/Expo client, `packages/core`, Deno Edge Functions. SQL limited to migrations/RLS. |
 
-1. **Fifth sport** [Baseball/Softball for US launch]. Cricket instead? Launch market?
-2. **Secondary sports on the path** [interleave one unit per secondary sport after focus Unit 2]. Or a separate path per sport with a sport switcher?
-3. **Chest contents** [shown before opening, XP + cosmetics only]. OK, or surprise reveal?
-4. **Family Quest parent side** [3 check-ins/week: view, cheer, or approve]. Too much / too little for parents?
-5. **Gear classifier** [bundled ~4 MB TFLite model + always-shown confirm sheet]. Accept the app-size cost, or chips-only for MVP and model at P1?
-6. **Mascot** [placeholder "Coach", 5 poses, encouraging-only copy]. Any name/species direction now so copy can be written in-voice?
-
-Confirmed: shadcn for RN via `react-native-reusables` + NativeWind. Assumptions still open: English-only, iOS + Android, no social features, COPPA/legal review pre-launch.
+Still assumed: English-only, iOS + Android, no social features, COPPA/legal review pre-launch, mascot name.

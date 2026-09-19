@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "graphify": {
+      "command": "/Users/tjlsmith0831/.local/bin/graphify-mcp",
+      "args": [
+        "--graph",
+        "/Users/tjlsmith0831/dev/coaching-app/graphify-out/graph.json"
+      ]
+    }
+  }
+}

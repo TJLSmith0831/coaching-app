@@ -1,0 +1,6 @@
+
+# Palisade Code's code graph — machine-local, rebuilt on demand.
+graphify-out/
+node_modules/
+dist/
+.expo/
