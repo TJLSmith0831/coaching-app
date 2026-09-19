@@ -34,3 +34,9 @@ agent helps keep track of the progress of it's user and work.
 - The prototype predates spec v2.1: soccer only, ball mascot "Kicky", node = single drill, different tabs/quests. Do not port those; they are listed under "Gaps".
 - In progress (Lars): second design pass in claude.ai/design for the screens the prototype lacks (auth, PIN, time picker, scan, summary variants, parent area). Will be re-exported into `design/prototype/`.
 - **Open for anyone:** restyling `apps/mobile` to the Organic theme (`global.css` vars, fonts, `components/ui/*`) is unclaimed. Claim here before starting so it doesn't collide with screen work.
+### 2026-09-19 — Tristan's agent (backend live, demo ready)
+- Supabase project `exaayuehkdmpdxrfhtuj`: 11 tables + RLS + `scan-photos` bucket (migrations `supabase/migrations/0001_init.sql`, `0002_harden_functions.sql`), security advisor clean. Edge Functions deployed: `set-child-pin`, `verify-child-pin`, `generate-path`, `start-session`, `complete-session`, `progress` (routes open-chest / record-scan / parent-checkin / sync-progress). See `supabase/README.md`.
+- App runs in **demo mode** (on-device) unless `apps/mobile/.env` exists; template in `.env.example`. **To go live:** copy `.env.example` → `.env`, and in Supabase Dashboard → Authentication → Providers → Email, turn off "Confirm email" (else sign-up has no session until the email link is clicked).
+- UX pass after Tristan's click-through: native birth-date picker (any age; drills matched to 8–13 bands), parent onboarding down to 6 steps (name+consent, child, sports, gear, PIN, done), PIN skippable (no-PIN kids tap straight in), kid onboarding hello → look → goals → daily goal.
+- Maestro flows in `e2e/` are written but not yet green (text selectors vs em-dash; switched to testIDs). Next owner: finish `e2e/01`.
+

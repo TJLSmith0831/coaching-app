@@ -205,7 +205,7 @@ export const useApp = create<State>()(
                 if (e instanceof HardRejection) {
                   set((s) => ({ pending: s.pending.filter((p) => p.id !== item.id) }));
                   if (item.childId) {
-                    const truth = await callFn<{ progress: ChildProgress }>("sync-progress", { child_id: item.childId, today: todayLocal() }).catch(() => null);
+                    const truth = await callFn<{ progress: ChildProgress }>("progress", { action: "sync-progress", child_id: item.childId, today: todayLocal() }).catch(() => null);
                     if (truth?.progress) patchChild(item.childId, (c) => ({ ...c, progress: truth.progress }));
                   }
                 } else break; // network: keep queued, retry later
@@ -241,6 +241,8 @@ async function runPending(item: Pending): Promise<unknown> {
     case "table:rewards": must(await supabase.from("rewards").upsert({ id: b.id, parent_id: uid, child_id: b.childId, title: b.title, cost_xp: b.costXp, milestone: b.milestoneLevel ? { level: b.milestoneLevel } : null })); return null;
     case "table:delete-reward": must(await supabase.from("rewards").delete().eq("id", b.id)); return null;
     case "table:claims": must(await supabase.from("reward_claims").upsert({ id: b.id, reward_id: b.rewardId, child_id: b.childId, status: b.status, claimed_at: b.claimedAt, resolved_at: b.status === "pending" ? null : new Date().toISOString() })); return null;
+    case "open-chest": case "record-scan": case "parent-checkin": case "sync-progress":
+      return callFn("progress", { action: item.name, ...item.body }); // consolidated Edge Function
     default: return callFn(item.name, item.body);
   }
 }
